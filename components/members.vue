@@ -1,5 +1,5 @@
 <template>
-    <v-card class="text-center pa-5">
+    <v-card class="text-center pa-5" elevation="2">
         <v-avatar
             size="avatarSize"
             color="green"
