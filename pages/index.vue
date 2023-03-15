@@ -47,17 +47,17 @@
         <!-- Projetos -->
         <div class="my-10">
             <h1>Projetos</h1>
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. 
-                Consequuntur optio expedita ad laborum sapiente repellat, dolore voluptatem, nostrum beatae reiciendis omnis deserunt amet. 
-                Repudiandae repellendus aspernatur, ipsum magni harum reprehenderit.
+            <p>
+                O laboratório de inteligência de dados é um ambiente onde os profissionais de análise de dados podem realizar experimentos e testes com diversas técnicas e ferramentas para aprimorar seus conhecimentos e habilidades. Nesse ambiente, eles têm acesso a conjuntos de dados de alta qualidade e tecnologias avançadas para manipulá-los, a fim de gerar insights valiosos que possam ajudar as empresas a melhorar seus processos e tomar decisões mais precisas e eficazes.
             </p>
-            <p class="my-3">Lorem ipsum dolor sit amet consectetur, adipisicing elit. 
-                Consequuntur optio expedita ad laborum sapiente repellat, dolore voluptatem, nostrum beatae reiciendis omnis deserunt amet. 
-                Repudiandae repellendus aspernatur, ipsum magni harum reprehenderit.
+            <p class="my-3">
+                Para que o laboratório de inteligência de dados seja eficaz, é necessário contar com uma equipe altamente qualificada e experiente, que possa trabalhar em conjunto para identificar e explorar oportunidades de melhoria. Além disso, é importante ter acesso a tecnologias de ponta e ferramentas analíticas avançadas, que possam ajudar a processar grandes volumes de dados e gerar insights acionáveis.
             </p>
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. 
-                Consequuntur optio expedita ad laborum sapiente repellat, dolore voluptatem, nostrum beatae reiciendis omnis deserunt amet. 
-                Repudiandae repellendus aspernatur, ipsum magni harum reprehenderit.
+            <p>
+                Em suma, o laboratório de inteligência de dados é um componente vital na estratégia de análise de dados de uma empresa. Ao investir em tecnologias e recursos avançados, as empresas podem obter insights valiosos e tomar decisões mais informadas e precisas, o que pode resultar em maior eficiência, produtividade e rentabilidade.
+            </p>
+            <p class="mt-3">
+                Segue abaixo projetos em estudo:
             </p>
             <div class="mt-10 text-center">
                 <v-row justify="center">
