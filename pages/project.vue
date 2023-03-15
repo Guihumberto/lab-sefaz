@@ -1,0 +1,26 @@
+<template>
+    <div>
+        <v-btn
+            to="/"
+            variant="flat"
+            prepend-icon="mdi-chevron-left"
+            class="pa-0"
+        >
+          voltar
+        </v-btn>
+        <h1>Projeto</h1>
+        <h5>Dados do projeto</h5>
+        <v-divider></v-divider>
+        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sequi asperiores minima, voluptatem aut praesentium fuga cumque porro et consectetur architecto rerum, corrupti aliquam rem! Magni, cupiditate amet. Vero, assumenda deserunt.</p>
+    </div>
+</template>
+
+<script>
+    export default {
+        
+    }
+</script>
+
+<style lang="scss" scoped>
+
+</style>

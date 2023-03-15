@@ -61,8 +61,8 @@
             </p>
             <div class="mt-10 text-center">
                 <v-row justify="center">
-                    <v-col v-for="item, i in 3" :key="i">
-                        <projects />
+                    <v-col v-for="item, i in projects" :key="i">
+                        <projects :project="item" />
                     </v-col>
                 </v-row>
             </div>
@@ -156,7 +156,12 @@
                     cargo: "",
                     formacao: "",
                     about: ""
-                }
+                },
+                projects:[
+                    {id: 0, name: "Estudo analítico dos documentos fiscais eletrônicos (NFe, NFAe) para detecção de fraudes", status: 0},
+                    {id: 1, name: "Construção de um modelo preditivo de classificação do contribuinte como bom/mau pagador", status: 0},
+                    {id: 1, name: "Previsão da arrecadação da receita por ramo de atividade", status: 0},
+                ]
             }
         },
         methods:{
