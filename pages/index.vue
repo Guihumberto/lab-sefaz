@@ -1,5 +1,7 @@
 <template>
-    <div>
+    <div v-motion
+      :initial="initial"
+      :enter="enter">
         <v-row>
             <v-col cols="6" sm="3">
                 <v-img
@@ -36,20 +38,21 @@
         </div>
            </v-col>
            <v-col cols="12" md="6" class="pa-10">
-            <v-expand-x-transition>
+        
                 <v-card v-if="expand" variant="flat">
-                    <v-img         
+                    <v-img       
+                      transition="fade-transition"  
                       lazy-src="https://www.t-systems.com/resource/image/557724/ratio3x4/768/1024/3df15c2f7f1cd4efce69857477d27a5/EA05B5ADCF31637523FF82D2CA706568/im-become-data-sovereign-with-data-intelligence-hub.jpg"
                       class="pa-10"
                       src="https://www.t-systems.com/resource/image/557724/ratio3x4/768/1024/3df15c2f7f1cd4efce69857477d27a5/EA05B5ADCF31637523FF82D2CA706568/im-become-data-sovereign-with-data-intelligence-hub.jpg"
                     ></v-img>
                 </v-card>
-                <v-card else height="100%" variant="flat">
+                <v-card v-else height="100%" variant="flat">
                     <v-row align-content="center" justify="center" style="height: 100%;">
                         <loading />
                     </v-row>
                 </v-card>
-            </v-expand-x-transition>
+          
             </v-col>
          </v-row>
         
@@ -137,8 +140,7 @@
                 </v-col>
             </v-row>
         </div>
-        
-
+    
     </div> 
 </template>
 
@@ -146,6 +148,14 @@
     export default {
         data(){
             return{
+                initial: {
+                    y: 100,
+                    opacity: 0,
+                },
+                enter: {
+                    y: 0,
+                    opacity: 1,
+                },
                 dialogUsers: false,
                 expand: false,
                 model: null,
