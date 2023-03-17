@@ -2,7 +2,7 @@
     <v-card>
         <v-toolbar
             color="primary"
-            title="Nome do Membro"
+            :title="member.name.split(' ')[0]"
         >
             <v-space></v-space>
             <v-btn @click="$emit('closeDialog', false)"><v-icon>mdi-close</v-icon></v-btn>

@@ -1,5 +1,11 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+    head: {
+        meta: [],
+        link: [
+            { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Montserrat&display=swap"'}
+        ]
+    },
     css:[
         "vuetify/styles/main.css",
         "@mdi/font/css/materialdesignicons.css"

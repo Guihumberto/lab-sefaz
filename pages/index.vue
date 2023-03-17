@@ -214,7 +214,7 @@
                     name: item.name,
                     cargo: item.cargo,
                     formacao: "Lorem ipsum dolor",
-                    about: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio enim, ipsum, aspernatur expedita facere exercitationem cum voluptates accusantium quisquam inventore provident officia repellendus. Eaque sunt corporis eligendi illo error itaque!"
+                    about: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio enim, ipsum, aspernatur expedita. Eaque sunt corporis eligendi illo error itaque!"
                 }
             }
         },
