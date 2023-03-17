@@ -25,9 +25,20 @@
             </div>
         </v-app-bar>
         <v-main v-if="resources.readLoad">
-            <v-container style="max-width: 1180px;">
-                <slot />
-            </v-container>
+            <v-row>
+                <v-col sm="2" class="d-none d-md-flex ">
+                    
+                </v-col>
+                <v-col cols="12" sm="8">
+                    <v-container style="max-width: 1180px;">
+                        <slot />
+                     </v-container>
+                </v-col>
+                <v-col sm="2" class="d-none d-md-flex fixedBar">
+                    <listphones />
+                </v-col>
+            </v-row>
+           
         </v-main>
         <v-main v-else>
             <v-container  class="fill-height bg-grey-lighten-4" fluid>
@@ -96,5 +107,7 @@
 .app{
    font-family: 'Montserrat', sans-serif;
  }
+
+
 
 </style>
