@@ -1,7 +1,7 @@
 <template>
     <div>
         <v-btn
-            to="/"
+            to="/#projects"
             variant="flat"
             prepend-icon="mdi-chevron-left"
             class="pa-0"

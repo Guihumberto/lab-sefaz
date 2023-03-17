@@ -36,16 +36,25 @@
         </div>
            </v-col>
            <v-col cols="12" md="6" class="pa-10">
-            <v-img
-              lazy-src="https://www.t-systems.com/resource/image/557724/ratio3x4/768/1024/3df15c2f7f1cd4efce69857477d27a5/EA05B5ADCF31637523FF82D2CA706568/im-become-data-sovereign-with-data-intelligence-hub.jpg"
-              class="pa-10"
-              src="https://www.t-systems.com/resource/image/557724/ratio3x4/768/1024/3df15c2f7f1cd4efce69857477d27a5/EA05B5ADCF31637523FF82D2CA706568/im-become-data-sovereign-with-data-intelligence-hub.jpg"
-            ></v-img>
+            <v-expand-x-transition>
+                <v-card v-if="expand" variant="flat">
+                    <v-img         
+                      lazy-src="https://www.t-systems.com/resource/image/557724/ratio3x4/768/1024/3df15c2f7f1cd4efce69857477d27a5/EA05B5ADCF31637523FF82D2CA706568/im-become-data-sovereign-with-data-intelligence-hub.jpg"
+                      class="pa-10"
+                      src="https://www.t-systems.com/resource/image/557724/ratio3x4/768/1024/3df15c2f7f1cd4efce69857477d27a5/EA05B5ADCF31637523FF82D2CA706568/im-become-data-sovereign-with-data-intelligence-hub.jpg"
+                    ></v-img>
+                </v-card>
+                <v-card else height="100%" variant="flat">
+                    <v-row align-content="center" justify="center" style="height: 100%;">
+                        <loading />
+                    </v-row>
+                </v-card>
+            </v-expand-x-transition>
             </v-col>
          </v-row>
         
         <!-- Projetos -->
-        <div class="my-10">
+        <div class="my-10" id="projects">
             <h1>Projetos</h1>
             <p>
                 O laboratório de inteligência de dados é um ambiente onde os profissionais de análise de dados podem realizar experimentos e testes com diversas técnicas e ferramentas para aprimorar seus conhecimentos e habilidades. Nesse ambiente, eles têm acesso a conjuntos de dados de alta qualidade e tecnologias avançadas para manipulá-los, a fim de gerar insights valiosos que possam ajudar as empresas a melhorar seus processos e tomar decisões mais precisas e eficazes.
@@ -76,9 +85,26 @@
                 </v-col>
             </v-row>
             <v-row class="ma-10" justify="center">
-                <v-col v-for="item, i in members" :key="i">
-                    <members :member="item" @click="dialogUsers = !dialogUsers, copyData(item)" />
-                </v-col>
+                <v-sheet
+                    class="mx-auto"
+                    elevation="0"
+                    min-width="390"
+                >
+                    <v-slide-group
+                        v-model="model"
+                        class="pa-2"
+                        selected-class="bg-success"
+                        show-arrows
+                    >
+                        <v-slide-group-item
+                            v-for="item, n in members"
+                            :key="n"
+                            v-slot="{ isSelected, toggle, selectedClass }"
+                        >
+                            <members :member="item" @click="dialogUsers = !dialogUsers, copyData(item)" />
+                        </v-slide-group-item>
+                    </v-slide-group>
+                </v-sheet>
             </v-row>
         </div>
 
@@ -92,6 +118,11 @@
         </v-dialog>
 
         <v-divider class="my-5"></v-divider>
+
+        <!-- logo lab -->
+        <div>
+            <lablogo />
+        </div>
 
         <div class="py-5 text-center">
             <v-row>
@@ -116,6 +147,8 @@
         data(){
             return{
                 dialogUsers: false,
+                expand: false,
+                model: null,
                 members:[
                     {
                         id: 1, 
@@ -174,6 +207,11 @@
                     about: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio enim, ipsum, aspernatur expedita facere exercitationem cum voluptates accusantium quisquam inventore provident officia repellendus. Eaque sunt corporis eligendi illo error itaque!"
                 }
             }
+        },
+        mounted(){
+            setTimeout(() => {
+                this.expand = true
+            }, 2000);
         }
     }
 </script>

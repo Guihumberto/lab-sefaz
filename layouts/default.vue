@@ -3,22 +3,25 @@
         <v-layout v-if="resources.readLoad">
             <v-app-bar
                 flat
+                class="text-center"
+                density="comfortable"
             >  
-                <v-app-bar-title >
+            <div class="d-flex mx-auto">
+                <v-app-bar-title class="mr-10">
                     <div class="d-flex">
                         <v-icon color="green" class="mr-1">mdi-head-snowflake-outline</v-icon>
                         <span class="text-green d-none d-sm-flex">Inteligência de Dados</span>
                     </div>
                 </v-app-bar-title>
-                <v-spacer />
                 <v-btn  
-                    color="black"
+                    color="green"
                     v-for="(item, i) in menu" 
                     :key="i" 
                     :to="item.url"
                 >
                     {{item.name}}
                 </v-btn>
+            </div>
             </v-app-bar>
             <v-main>
                 <v-container style="max-width: 1180px;">
