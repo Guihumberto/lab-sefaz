@@ -4,6 +4,7 @@
       :initial="initial"
       :enter="enter">
         <h1>Sobre</h1>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam beatae nihil libero quasi sunt officiis, architecto distinctio dolorem excepturi, consectetur ratione? Dolore, amet cum nesciunt placeat accusantium perferendis beatae exercitationem?</p>
     </div>
 </template>
 
