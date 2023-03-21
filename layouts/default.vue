@@ -19,8 +19,9 @@
                     v-for="(item, i) in menu" 
                     :key="i" 
                     :to="item.url"
+                    :prepend-icon="!item.show ? item.icon : ''"
                 >
-                    {{item.name}}
+                    {{item.show ? item.name : ''}}
                 </v-btn>
             </div>
         </v-app-bar>
@@ -29,12 +30,12 @@
                 <v-col sm="2" class="d-none d-md-flex ">
                     
                 </v-col>
-                <v-col cols="12" sm="8">
+                <v-col cols="12" sm="7">
                     <v-container style="max-width: 1180px;">
                         <slot />
                      </v-container>
                 </v-col>
-                <v-col sm="2" class="d-none d-md-flex fixedBar">
+                <v-col sm="3" class="d-none d-xl-flex fixedBar px-0">
                     <listphones />
                 </v-col>
             </v-row>
@@ -90,9 +91,9 @@
     }, "1000");
 
     const menu = [
-        {name: "Home", icon: "mdi-home", url:"/"},
-        {name: "Download", icon: "mdi-download", url:"/download"},
-        {name: "Sobre", icon: "mdi-home", url:"/about"},
+        {name: "Home", icon: "mdi-home", url:"/", show: true},
+        {name: "Download", icon: "mdi-download", url:"/download", show: true},
+        {name: "Telefone", icon: "mdi-phone", url:"/phone", show: false},
     ]
 </script>
 
@@ -108,6 +109,10 @@
    font-family: 'Montserrat', sans-serif;
  }
 
-
+.fixedBar{
+    position: fixed;
+    top: 10;
+    right: 0;
+}
 
 </style>

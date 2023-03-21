@@ -1,7 +1,7 @@
 <template>
     <v-card
-      class="mx-auto overflow-auto"
-      height="980"
+      height="90.5vh"
+      width="100%"
     >
       <v-toolbar color="cyan-lighten-1" v-if="!searchActive">
         <v-btn variant="text" icon="mdi-phone"></v-btn>
@@ -26,6 +26,8 @@
   
       <v-list
         lines="three"
+        class="mx-auto overflow-auto"
+        height="93%"
        
       >
         <v-list-item v-for="item, i in listComplete" :key="i">
