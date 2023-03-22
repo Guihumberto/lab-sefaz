@@ -3,7 +3,6 @@
       v-motion
       :initial="initial"
       :enter="enter"
-      class="d-none d-lg-flex d-xl-none"
     >
         <listphones />
     </div>
