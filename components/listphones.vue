@@ -1,6 +1,6 @@
 <template>
     <v-card
-      height="90.5vh"
+      height="85.5vh"
       width="100%"
     >
       <v-toolbar color="cyan-lighten-1" v-if="!searchActive">
@@ -27,7 +27,7 @@
       <v-list
         lines="three"
         class="mx-auto overflow-auto"
-        height="93%"
+        height="90%"
        
       >
         <v-list-item v-for="item, i in listComplete" :key="i">

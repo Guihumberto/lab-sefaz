@@ -16,12 +16,13 @@
                 </v-app-bar-title>
                 <v-btn  
                     color="green"
+                    size="small"
                     v-for="(item, i) in menu" 
                     :key="i" 
                     :to="item.url"
-                    :prepend-icon="!item.show ? item.icon : ''"
+                    :prepend-icon=" item.icon"
                 >
-                    {{item.show ? item.name : ''}}
+                    {{ item.name }}
                 </v-btn>
             </div>
         </v-app-bar>
@@ -30,19 +31,18 @@
                 <v-col sm="2" class="d-none d-md-flex ">
                     
                 </v-col>
-                <v-col cols="12" sm="7">
+                <v-col cols="12" sm="8">
                     <v-container style="max-width: 1180px;">
                         <slot />
                      </v-container>
                 </v-col>
-                <v-col sm="3" class="d-none d-xl-flex fixedBar px-0">
-                    <listphones />
+                <v-col sm="2" class="d-none d-xl-flex">
                 </v-col>
             </v-row>
            
         </v-main>
         <v-main v-else>
-            <v-container  class="fill-height bg-grey-lighten-4" fluid>
+            <v-container  class="fill-height bg-grey-lighten-4 text-black" fluid>
                 <v-row>
                     <v-col cols="12">
                         <v-row justify="center">
@@ -92,8 +92,8 @@
 
     const menu = [
         {name: "Home", icon: "mdi-home", url:"/", show: true},
-        {name: "Download", icon: "mdi-download", url:"/download", show: true},
-        {name: "Telefone", icon: "mdi-phone", url:"/phone", show: false},
+        {name: "Prioridades", icon: "mdi-upload", url:"/priority", show: true},
+        {name: "Ramais", icon: "mdi-phone", url:"/phone", show: false},
     ]
 </script>
 
@@ -105,9 +105,9 @@
     border-top: 1px solid rgb(209, 203, 203);
 }
 
-.app{
+/* .app{
    font-family: 'Montserrat', sans-serif;
- }
+ } */
 
 .fixedBar{
     position: fixed;
