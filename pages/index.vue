@@ -13,29 +13,28 @@
             </v-col>
             <v-col cols="6" sm="9" class="my-auto">
                 <h1 class="text-h5">COTEC</h1>
-                <h2 class="text-h4">Inteligência de Dados</h2>
             </v-col>
         </v-row>
         <v-divider class="my-5"></v-divider>
          <v-row>
            <v-col cols="12" md="6">
             <div>
-            <h1>Objetivo</h1>
-            <p>
-                O Núcleo de Estudos em Ciência de Dados (NeCD) da Secretaria de Estado da Fazenda do Estado do Maranhão (SEFAZ-MA), vinculado ao Corpo Técnico para Tecnologia da Informação (COTEC), tem o objetivo de fomentar a qualificação profissional mediante o desenvolvimento de projetos e ações na área de Ciência de Dados aplicada à fiscalização tributária com a análise e interpretação de grandes quantidades de informações para ajudar a SEFAZ a tomar decisões informadas, com a utilização de técnicas de mineração de dados e aprendizado de máquina para extrair informações úteis a partir de conjuntos de dados complexos.
-            </p> <br>
-            <p>
-                As atividades realizadas no âmbito do NeCD seguirão o processo de Ciência de Dados, passando pelas seguintes etapas: <br>
-                <ul class="pl-5">
-                    <li> definição do problema: consiste em estabelecer a definição clara e concisa do problema;</li>
-                    <li> aquisição dos dados: consiste em identificar as fontes de dados; coletar e armazenar os dados;</li>
-                    <li>manter a rastreabilidade dos dados; versionar e gerenciar os dados; transformar, limpar e enriquecer os dados coletados;</li>
-                    <li>análise exploratória dos dados: consiste em realizar investigações iniciais nos dados coletados para descobrir padrões, detectar anomalias, testar hipóteses e verificar suposições com a ajuda de medidas de resumo e representações gráficas;</li>
-                    <li> modelagem dos dados: consiste em selecionar as características mais significativas a partir dos dados brutos; treinar modelos de aprendizado de máquina, mensurar o desempenho deles e utilizá-los para fazer predições;</li>
-                    <li>comunicação e visualização dos resultados: consiste em comunicar os principais achados por meio de representações gráficas e visualizações interativas.</li>
-                </ul>
-            </p>
-        </div>
+                <h1>Objetivo</h1>
+                <p>
+                    O Núcleo de Estudos em Ciência de Dados (NeCD) da Secretaria de Estado da Fazenda do Estado do Maranhão (SEFAZ-MA), vinculado ao Corpo Técnico para Tecnologia da Informação (COTEC), tem o objetivo de fomentar a qualificação profissional mediante o desenvolvimento de projetos e ações na área de Ciência de Dados aplicada à fiscalização tributária com a análise e interpretação de grandes quantidades de informações para ajudar a SEFAZ a tomar decisões informadas, com a utilização de técnicas de mineração de dados e aprendizado de máquina para extrair informações úteis a partir de conjuntos de dados complexos.
+                </p> <br>
+                <p>
+                    As atividades realizadas no âmbito do NeCD seguirão o processo de Ciência de Dados, passando pelas seguintes etapas: <br>
+                    <ul class="pl-5">
+                        <li> definição do problema: consiste em estabelecer a definição clara e concisa do problema;</li>
+                        <li> aquisição dos dados: consiste em identificar as fontes de dados; coletar e armazenar os dados;</li>
+                        <li>manter a rastreabilidade dos dados; versionar e gerenciar os dados; transformar, limpar e enriquecer os dados coletados;</li>
+                        <li>análise exploratória dos dados: consiste em realizar investigações iniciais nos dados coletados para descobrir padrões, detectar anomalias, testar hipóteses e verificar suposições com a ajuda de medidas de resumo e representações gráficas;</li>
+                        <li> modelagem dos dados: consiste em selecionar as características mais significativas a partir dos dados brutos; treinar modelos de aprendizado de máquina, mensurar o desempenho deles e utilizá-los para fazer predições;</li>
+                        <li>comunicação e visualização dos resultados: consiste em comunicar os principais achados por meio de representações gráficas e visualizações interativas.</li>
+                    </ul>
+                </p>
+            </div>
            </v-col>
            <v-col cols="12" md="6" class="pa-10">
         
@@ -145,6 +144,7 @@
 </template>
 
 <script>
+
     export default {
         data(){
             return{

@@ -1,9 +1,9 @@
 <template>
     <div>
         <v-card 
-            class="text-center pa-5 ma-4" 
-            
-            elevation="2"
+            class="text-center pa-5 ma-4 border" 
+            elevation="0"
+            hover
         >
             <v-avatar
                 size="avatarSize"
@@ -35,6 +35,9 @@
     }
 </script>
 
-<style lang="scss" scoped>
-
+<style scoped>
+.v-card:hover{
+    transform: scale(1.1);
+    transition: .5s ease;
+}
 </style>

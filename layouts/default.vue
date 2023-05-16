@@ -26,7 +26,7 @@
                 </v-btn>
             </div>
         </v-app-bar>
-        <v-main v-if="resources.readLoad">
+        <v-main v-if="resources.readLoad" class="container-bg">
             <v-row>
                 <v-col sm="2" class="d-none d-md-flex ">
                     
@@ -98,6 +98,12 @@
 </script>
 
 <style>
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
 .v-app-bar{
     border-bottom: 1px solid rgb(209, 203, 203);
 }
@@ -105,14 +111,25 @@
     border-top: 1px solid rgb(209, 203, 203);
 }
 
-/* .app{
-   font-family: 'Montserrat', sans-serif;
- } */
-
 .fixedBar{
     position: fixed;
     top: 10;
     right: 0;
 }
-
+.container-bg{
+    /* background: linear-gradient(45deg, #f5eeee, #cadbdb, #d1e6f3e2); */
+    background-size: 900% 200%;
+    /* animation: animate 20s linear infinite; */
+}
+@keyframes animate {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
 </style>
