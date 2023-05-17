@@ -3,6 +3,7 @@ import { defineStore } from "pinia";
 export const useConsultoresStore = defineStore("consultores", {
   state: () => ({
     consultores:[
+      {id:0, cpf: '0000', name: 'Todos', active: true},
       {id:1, cpf:874838, name: 'Fulano', active: true},
       {id:2, cpf:2, name: 'Cicrano', active: true},
     ],

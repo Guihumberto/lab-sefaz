@@ -3,6 +3,7 @@ import { defineStore } from "pinia";
 export const useProjetosStore = defineStore("projetos", {
   state: () => ({
     projetos:[
+      {id:0, projeto: 'Todos', idColider: 1, empresa: 'TeachLead', active: true},
       {id:1, projeto: 'Conta Corrente Parametrizada - CCP', idColider: 1, empresa: 'TeachLead', active: true},
       {id:2, projeto: 'SMART', idColider: 2, empresa: 'Loglab', active: true},
       {id:3, projeto: 'CRESCENDO', idColider: 1, empresa: 'Donpeople', active: true},

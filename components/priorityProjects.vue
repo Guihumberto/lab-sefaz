@@ -5,14 +5,37 @@
   >
   <v-card-title>Lista de Solicitações</v-card-title>
   <v-card-item>
-    <v-btn
-      :icon="reverse ? 'mdi-order-numeric-ascending' : 'mdi-order-numeric-descending'"
-      rounded="sm"
-      elevation="4"
-      variant="tonal"
-      density="compact"
-      @click="reverse = !reverse"
-    />
+    <div class="d-flex justify-space-between">
+      <div class="d-flex w-100">
+        <v-select
+          label="Consultor"
+          density="compact"
+          :items="listConsultor"
+          item-title="name"
+          item-value="id"
+          style="max-width: 400px;"
+          v-model="filterConsult"
+        ></v-select>
+        <v-autocomplete
+          label="Projetos"
+          density="compact"
+          class="ml-4"
+          style="max-width: 400px;"
+          :items="listProjetos"
+          item-title="projeto"
+          item-value="id"
+          v-model="filterProject"
+        ></v-autocomplete>
+      </div>
+      <v-btn
+        :icon="reverse ? 'mdi-order-numeric-ascending' : 'mdi-order-numeric-descending'"
+        rounded="sm"
+        elevation="4"
+        variant="tonal"
+        density="compact"
+        @click="reverse = !reverse"
+      />
+    </div>
   </v-card-item>
   <v-card-item>
     <v-list density="compact">
@@ -76,10 +99,22 @@
 export default {
   data: () => ({
     reverse: true,
+    filterConsult: 0,
+    filterProject: 0
   }),
   computed:{
     listChamados(){
-        return chamadosStore.readChamados.sort(this.order) 
+        let list = chamadosStore.readChamados.sort(this.order) 
+
+        if(this.filterConsult){
+          list = list.filter(x => x.consultor == this.filterConsult)
+        }
+
+        if(this.filterProject){
+          list = list.filter(x => x.idProject == this.filterProject)
+        }
+
+        return list
     },
     listProjetos(){
         return projetosStore.readProjetos
