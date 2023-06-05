@@ -22,14 +22,42 @@ export const useServidoresStore = defineStore("servidores", {
     }
   },
   actions: {
-    addReservas(item){
+    async cargaServidoresFB(){
+      try {
+          const res = await fetch('https://cotec-api-default-rtdb.firebaseio.com/profisco/servidores.json')
+          const dataDB = await res.json()
+
+          for (let id in dataDB){
+              this.servidores.push(dataDB[id])
+          } 
+      } catch (error) {
+          console.log(error)
+      }
+    },
+    async addServidor(item){
       let servidor = {
         id: item.id,
         mat: item.mat,
-        name: item.casa,
+        name: item.name,
         active: true
       }
       this.servidores.push(servidor)
-    }
+      // firebase
+      try{
+        const res = await fetch(`https://cotec-api-default-rtdb.firebaseio.com/profisco/servidores/${servidor.id}.json`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(servidor)
+        })
+
+        const dataDB = await res.json()
+        console.log(dataDB);
+
+      } catch(e) {
+        console.log(e);
+      }
+    },
   },
 });

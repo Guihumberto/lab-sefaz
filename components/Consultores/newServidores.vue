@@ -6,22 +6,27 @@
                 <v-btn @click="$emit('close')" variant="text" icon><v-icon>mdi-close</v-icon></v-btn>
             </v-card-title>
             <v-card-item>
-                <v-form class="pa-5">
+                <v-form class="pa-5" @submit.prevent="saveServidor(servidor)">
                     <v-text-field 
                         label="Matrícula"
                         variant="outlined"
                         density="compact"
                         placeholder="Digite a matricula"
+                        v-model="servidor.name"
+                        clearable
                     />
                     <v-text-field 
                         label="Nome"
                         variant="outlined"
                         density="compact"
                         placeholder="Digite o nome completo"
+                        v-model="servidor.mat"
+                        clearable
                     />
                     <v-btn
                         color="primary"
                         block
+                        type="submit"
                     >Inserir</v-btn>
                 </v-form>
             </v-card-item>
@@ -46,15 +51,29 @@
     export default {
         data(){
             return{
-                person:{
+                servidor:{
+                    id: null,
                     mat: null,
-                    Name: ''
+                    name: ''
                 }
             }
         },
         computed:{
             listServidores(){
                 return servidoresStore.readServidores
+            }
+        },
+        methods:{
+            saveServidor(item){
+                servidoresStore.addServidor(item)
+                this.clear()
+            },
+            clear(){
+                this.servidor = {
+                    id: null,
+                    mat: null,
+                    name: ''
+                }
             }
         }
     }

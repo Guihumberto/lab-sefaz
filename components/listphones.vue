@@ -444,7 +444,7 @@
         {
         gestor: "PROCURADOR MARCELO ",
         area_lotacao: "PGE – CHEFE - 9150",
-        telefone: "3219-9076 -  9050  Proc. Leonardo                    Thaís (86) 99829-0146"
+        telefone: "3219-9076 -  9050  Proc. Leonardo, Thaís (86) 99829-0146, contecioso - 9071"
         },
         {
         gestor: "VIDEO – CONFERÊNCIA call",

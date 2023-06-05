@@ -27,6 +27,6 @@ export const useProjetosStore = defineStore("projetos", {
         active: true
       }
       this.projetos.push(projeto)
-    }
+    },
   },
 });
