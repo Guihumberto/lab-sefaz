@@ -5,6 +5,7 @@
   >
   <v-card-title>Lista de Solicitações</v-card-title>
   <v-card-item>
+    <!-- filtros -->
     <div class="d-flex justify-space-between">
       <div class="d-flex w-100">
         <v-select
@@ -15,6 +16,16 @@
           item-value="id"
           style="max-width: 400px;"
           v-model="filterConsult"
+        ></v-select>
+        <v-select
+          label="Status"
+          density="compact"
+          :items="listStatus"
+          item-title="name"
+          item-value="id"
+          style="max-width: 400px;"
+          v-model="filterStatus"
+          class="ml-2"
         ></v-select>
         <v-autocomplete
           label="Projetos"
@@ -34,6 +45,7 @@
         variant="tonal"
         density="compact"
         @click="reverse = !reverse"
+        class="mx-2"
       />
     </div>
   </v-card-item>
@@ -49,7 +61,12 @@
             {{ item.ordem }}
           </span>
         </template>
-        <v-list-item-title> {{nameProject(item.idProject)}}</v-list-item-title>
+        <v-list-item-title> 
+          {{ nameProject(item.idProject) }}
+          <v-chip density="compact" :color="colorStatus(item.status)">
+            {{ nameStatus(item.status) }}
+          </v-chip>
+        </v-list-item-title>
         <v-list-item-subtitle>
           {{ item.textSolic }}
         </v-list-item-subtitle>
@@ -100,7 +117,8 @@ export default {
   data: () => ({
     reverse: true,
     filterConsult: 0,
-    filterProject: 0
+    filterProject: 0,
+    filterStatus: 6
   }),
   computed:{
     listChamados(){
@@ -114,6 +132,10 @@ export default {
           list = list.filter(x => x.idProject == this.filterProject)
         }
 
+        if(this.filterStatus != 6){
+          list = list.filter(x => x.status == this.filterStatus)
+        }
+
         return list
     },
     listProjetos(){
@@ -121,6 +143,9 @@ export default {
     },
     listConsultor(){
       return consultorStore.readConsultores
+    },
+    listStatus(){
+      return chamadosStore.readStatus
     },
     maxOrdem(){
       let list = this.listChamados.map( x => x.ordem)
@@ -141,6 +166,33 @@ export default {
     nameConsultor(item){
       const list = this.listConsultor.find( x => x.id == item)
       return list.name.split(' ')[0]
+    },
+    nameStatus(item){
+      const nameStatus = this.listStatus.find(x => x.id == item)
+      return nameStatus.name
+    },
+    colorStatus(item){
+      switch(item){
+        case 0:
+          return 'error'
+          break;
+        case 1:
+          return 'primary'
+          break;
+        case 2:
+          return 'warning'
+          break;
+        case 3:
+          return 'red'
+          break;
+        case 4:
+          return 'red'
+          break;
+        case 5:
+          return 'success'
+          break;
+        default: 'blue'
+      }
     },
     upList(item){
       let idSeguinte = this.listChamados.find(x => x.ordem == item.ordem - 1)

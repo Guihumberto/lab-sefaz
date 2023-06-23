@@ -92,7 +92,7 @@
 
     const menu = [
         {name: "Home", icon: "mdi-home", url:"/", show: true},
-        {name: "Prioridades", icon: "mdi-upload", url:"/priority", show: true},
+        {name: "PROFISCO", icon: "mdi-upload", url:"/profisco", show: true},
         {name: "Ramais", icon: "mdi-phone", url:"/phone", show: false},
     ]
 </script>

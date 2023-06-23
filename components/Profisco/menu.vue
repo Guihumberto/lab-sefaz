@@ -1,0 +1,34 @@
+<template>
+    <nav class="menu">
+        <nuxt-link to="/sefaz/listconfigPriorits">Priorização</nuxt-link>
+        <nuxt-link to="/empresa/Projetos">Projetos</nuxt-link>
+        <nuxt-link to="/consultores/chamados">Chamados</nuxt-link>
+        <nuxt-link to="/empresa/Projetos">Sair</nuxt-link>
+    </nav>
+</template>
+
+<script>
+    export default {
+        
+    }
+</script>
+
+<style scoped>
+.menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 35px;
+}
+.menu a {
+    text-decoration: none;
+    color: #000;
+    padding: 10px 1rem;
+    transition: .5s;
+    font-weight: bold;
+}
+.menu a:hover{
+    background-color: rgb(177, 243, 243);
+}
+
+</style>

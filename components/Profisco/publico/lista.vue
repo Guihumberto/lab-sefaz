@@ -1,0 +1,153 @@
+<template>
+    <div>
+      <v-btn 
+        variant="outlined"
+        @click="filterConcluidos = !filterConcluidos"
+        :color="filterConcluidos ? 'grey' : ''"
+        :prepend-icon="filterConcluidos ? 'mdi-eye-off-outline' : 'mdi-eye'"
+      >
+        {{filterConcluidos ? 'Ocultar concluídos' : 'Mostrar Concluídos'}}
+      </v-btn>
+    </div>
+    <v-table>
+      <thead>
+        <tr>
+          <th class="text-center">
+            #
+          </th>
+          <th class="text-left">
+            Prioridade
+          </th>
+          <!-- <th class="text-left">
+            Nº Chamado
+          </th> -->
+          <th class="text-left">
+            Descrição
+          </th>
+          <th class="text-left">
+            Projeto
+          </th>
+          <th class="text-left">
+            Empresa
+          </th>
+          <th class="text-center">
+            Status
+          </th>
+          <!-- <th class="text-left">
+            Data de Previsão
+          </th> -->
+          <th class="text-center">
+            Consultor Responsável
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          v-for="item, i in listChamados"
+          :key="item.name"
+        >
+          <td class="text-center"> 
+            <v-icon color="success" size="small">mdi-arrow-up</v-icon>
+          </td>
+          <td class="text-center">{{ item.ordem }}</td>
+          <!-- <td>{{ item.nrocham }}</td> -->
+          <td>{{ item.textSolic }}</td>
+          <td> {{ nameProject(item.idProject).projeto }}</td>
+          <td> {{ nameEmpresa(nameProject(item.idProject).idEmpresa) }}</td>
+          <td class="text-center"><v-chip density="compact" :color="colorStatus(item.status)">
+            {{ nameStatus(item.status) }}
+          </v-chip></td>
+          <!-- <td>{{ item.prevdate }}</td> -->
+          <td class="text-center">{{ nameConsultor(item.consultor) }}</td>
+        </tr>
+      </tbody>
+    </v-table>
+  </template>
+  <script>
+    import { useChamadosStore } from '@/stores/ChamadosStore'
+    const chamadosStore = useChamadosStore()
+
+    import { useProjetosStore } from '@/stores/ProjetosStore'
+    const projetosStore = useProjetosStore()
+
+    import { useConsultoresStore } from '@/stores/ConsultoresStore'
+    const consultorStore = useConsultoresStore()
+
+  export default {
+    data () {
+      return {
+        filterConcluidos: false,
+        reverse: true,
+      }
+    },
+    computed:{
+      listChamados(){
+        let list = chamadosStore.readChamados.sort(this.order) 
+
+        if(this.filterConcluidos){
+          list = list.filter(x => x.status != 5)
+        }
+  
+        return list
+      },
+      listProjetos(){
+        return projetosStore.readProjetos
+      },
+      listConsultor(){
+        return consultorStore.readConsultores
+      },
+      listStatus(){
+        return chamadosStore.readStatus
+      },
+      listEmpresa(){
+        return projetosStore.readEmpresa
+      }
+    },
+    methods:{
+      nameProject(item){
+        const nameProject = this.listProjetos.find(x => x.id == item)
+        return nameProject
+      },
+      nameEmpresa(item){
+        const nameEmpresa = this.listEmpresa.find(x => x.id == item)
+        return nameEmpresa.name
+      },
+      nameConsultor(item){
+        const list = this.listConsultor.find( x => x.id == item)
+        return list.name.split(' ')[0]
+      },
+      nameStatus(item){
+        const nameStatus = this.listStatus.find(x => x.id == item)
+        return nameStatus.name
+      },
+      colorStatus(item){
+        switch(item){
+          case 0:
+            return 'error'
+            break;
+          case 1:
+            return 'primary'
+            break;
+          case 2:
+            return 'warning'
+            break;
+          case 3:
+            return 'red'
+            break;
+          case 4:
+            return 'red'
+            break;
+          case 5:
+            return 'success'
+            break;
+          default: 'blue'
+        }
+      },
+      order(a, b){        
+          return this.reverse
+          ? a.ordem -  b.ordem
+          : b.ordem -  a.ordem
+      },
+    }
+  }
+</script>
