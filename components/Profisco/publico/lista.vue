@@ -1,5 +1,34 @@
 <template>
     <div>
+      <div class="menuFilter">
+        <v-select
+          label="Status"
+          density="compact"
+          :items="listStatus"
+          item-title="name"
+          item-value="id"
+          v-model="filterStatus"
+          class="formInput"
+        ></v-select>
+        <v-autocomplete
+          label="Projetos"
+          density="compact"
+          class="ml-2 formInput"
+          :items="listProjetos"
+          item-title="projeto"
+          item-value="id"
+          v-model="filterProject"
+        ></v-autocomplete>
+        <v-select
+          label="Consultor"
+          density="compact"
+          :items="listConsultor"
+          item-title="name"
+          item-value="id"
+          v-model="filterConsult"
+          class="ml-2 formInput"
+        ></v-select>
+      </div>
       <v-btn 
         variant="outlined"
         @click="filterConcluidos = !filterConcluidos"
@@ -9,7 +38,7 @@
         {{filterConcluidos ? 'Ocultar concluídos' : 'Mostrar Concluídos'}}
       </v-btn>
     </div>
-    <v-table>
+    <v-table hover>
       <thead>
         <tr>
           <th class="text-center">
@@ -77,6 +106,9 @@
     data () {
       return {
         filterConcluidos: false,
+        filterConsult: 0,
+        filterProject: 0,
+        filterStatus: 6,
         reverse: true,
       }
     },
@@ -86,6 +118,18 @@
 
         if(this.filterConcluidos){
           list = list.filter(x => x.status != 5)
+        }
+
+        if(this.filterConsult){
+          list = list.filter(x => x.consultor == this.filterConsult)
+        }
+
+        if(this.filterProject){
+          list = list.filter(x => x.idProject == this.filterProject)
+        }
+
+        if(this.filterStatus != 6){
+          list = list.filter(x => x.status == this.filterStatus)
         }
   
         return list
@@ -151,3 +195,20 @@
     }
   }
 </script>
+
+<style scoped>
+.menuFilter{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+}
+@media (max-width: 400px) {
+  .menuFilter {
+    flex-direction: column;
+  }
+  .formInput {
+    width: 100%;
+  }
+}
+</style>

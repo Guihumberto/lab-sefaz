@@ -1,10 +1,10 @@
 <template>
-    <nav class="menu">
+    <!-- <nav class="menu d-none d-sm-flex">
         <nuxt-link to="/sefaz/listconfigPriorits">Priorização</nuxt-link>
         <nuxt-link to="/empresa/Projetos">Projetos</nuxt-link>
         <nuxt-link to="/consultores/chamados">Chamados</nuxt-link>
         <nuxt-link to="/empresa/Projetos">Sair</nuxt-link>
-    </nav>
+    </nav> -->
 </template>
 
 <script>
