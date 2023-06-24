@@ -203,6 +203,9 @@
   align-items: center;
   width: 100%;
 }
+.formInput {
+    max-width: 33,33%;
+  }
 @media (max-width: 400px) {
   .menuFilter {
     flex-direction: column;

@@ -5,7 +5,7 @@
         </v-btn>
         <div class="d-flex justify-space-between align-center">
             <h1 class="mb-3">Chamados</h1>
-            <h3>Nome do consultor</h3>
+            <h3> <v-icon size="small">mdi-account</v-icon>Nome do consultor</h3>
         </div>
         <ProfiscoConsultorChamados />
     </div>

@@ -9,7 +9,7 @@
             v-bind="props"
             flat
           >
-            <v-icon color="primary">mdi-home</v-icon>
+            <v-icon color="primary">mdi-square-edit-outline</v-icon>
           </v-btn>
         </template>
   
@@ -19,52 +19,73 @@
           </v-card-item>
           <v-card-text class="text-center mb-5">
             <div class="text-left mb-5 bg-blue-lighten-5 pa-3">
-                <h2>Novo Chamado</h2>
-                <h3>Nome do projeto</h3>
+                <h3>{{ nameProject(project.idProject)}}</h3>
+                <p>Descrição: {{ project.textSolic }}</p>
+                <p>Status : {{ nameStatus(project.status) }}</p>
             </div>
-            <div class="mb-5">
-              <v-btn color="blue">Iniciar a resolução</v-btn> <br>
-              <div>
-                <v-btn class="my-2" color="success">Concluir chamado</v-btn> <br>
-
-                <v-menu>
-                  <template v-slot:activator="{ props }">
-                    <v-btn
-                      color="primary"
-                      v-bind="props"
-                      variant="text"
-                      size="small"
-                    >
-                      Informar outro status
-                    </v-btn>
-                  </template>
-                  <v-list>
-                    <v-list-item
-                      v-for="(item, index) in items"
-                      :key="index"
-                      :value="index"
-                    >
-                      <v-list-item-title>{{ item.title }}</v-list-item-title>
-                    </v-list-item>
-                  </v-list>
-                </v-menu>
+            <div v-if="project.status == 5">
+              Chamado encontra-se com status <v-chip color="success">CONCLUÍDO</v-chip>  <br>
+              Deseja reabrir o chamado ? <a @click.prevent="changeStatus(1)" class="text-blue">Sim</a>
+            </div>
+            <div v-else>
+              <div class="mb-5">
+                <v-btn 
+                  color="blue"
+                  v-if="project.status == 0"
+                  @click.prevent="changeStatus(1)"
+                >Iniciar a resolução</v-btn> <br>
+                <div>
+                  <v-btn 
+                    class="my-2" 
+                    color="success"
+                    v-if="project.status != 0"
+                    @click.prevent="changeStatus(5)"
+                  >Concluir chamado</v-btn> <br>
+  
+                  <v-menu 
+                    v-if="project.status != 0"
+                  >
+                    <template v-slot:activator="{ props }">
+                      <v-btn
+                        color="primary"
+                        v-bind="props"
+                        variant="text"
+                        size="small"
+                      >
+                        Informar outro status
+                      </v-btn>
+                    </template>
+                    <v-list>
+                      <v-list-item
+                        v-for="(item, index) in items"
+                        :key="index"
+                        :value="index"
+                        @click.prevent="changeStatus(item.id)"
+                      >
+                        <v-list-item-title>{{ item.title }}</v-list-item-title>
+                      </v-list-item>
+                    </v-list>
+                  </v-menu>
+                </div>
+  
               </div>
-
+              <v-form class="border pa-5" v-if="project.status != 0">
+                  <v-text-field
+                      label="Previsão da conclusão"
+                      type="date"
+                      variant="outlined"
+                      density="comfortable"
+                      v-if="!project.prevdate"
+                  ></v-text-field>
+                  <v-textarea
+                      label="Observação"
+                      variant="outlined"
+                      density="comfortable"
+                      v-if="!project.textObs"
+                  ></v-textarea>
+                  <v-btn block color="primary">Salvar</v-btn>
+              </v-form>
             </div>
-            <v-form class="border pa-5">
-                <v-text-field
-                    label="Previsão da conclusão"
-                    type="date"
-                    variant="outlined"
-                    density="comfortable"
-                ></v-text-field>
-                <v-textarea
-                    label="Observação"
-                    variant="outlined"
-                    density="comfortable"
-                ></v-textarea>
-                <v-btn block color="primary">Salvar</v-btn>
-            </v-form>
           </v-card-text>
         </v-card>
       </v-dialog>
@@ -72,19 +93,46 @@
   </template>
 
 <script>
+  import { useChamadosStore } from '@/stores/ChamadosStore'
+  const chamadosStore = useChamadosStore()
+
+  import { useProjetosStore } from '@/stores/ProjetosStore'
+  const projetosStore = useProjetosStore()
+
   export default {
     data () {
       return {
         dialog: false,
         items: [
-          { title: 'Impedimento' },
-          { title: 'Pendência' },
-          { title: 'Cancelado' },
+          {id: 2, title: 'Validação'},
+          {id: 3, title: 'Impedimento/Pendência'}, 
+          {id: 4, title: 'Cancelado'},
         ],
       }
     },
     props:{
-        project: false
+        project: Object
+    },
+    computed:{
+      listStatus(){
+        return chamadosStore.readStatus
+      },
+      listProjetos(){
+        return projetosStore.readProjetos
+      },
+    },
+    methods:{
+      changeStatus(status){
+        this.project.status = status
+      },
+      nameStatus(item){
+        const nameStatus = this.listStatus.find(x => x.id == item)
+        return nameStatus.name
+      },
+      nameProject(item){
+        const nameProject = this.listProjetos.find(x => x.id == item)
+        return nameProject.projeto
+      },  
     }
   }
 </script>

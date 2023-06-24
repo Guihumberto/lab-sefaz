@@ -1,10 +1,11 @@
 <template>
     <div>
-        <h1>Profisco</h1>
+        <h1>Priorização</h1>
+        <p>Comitê Estratégico de Projetos SEFAZ financiados pelo Profisco</p>
         <div class="d-flex justify-space-between align-self-center">
             <h4 class="my-5">Resumo</h4>
             <div class="d-flex">
-                <ProfiscoMenu />
+                <!-- <ProfiscoMenu /> -->
                 <ProfiscoLogin />
             </div>
         </div>

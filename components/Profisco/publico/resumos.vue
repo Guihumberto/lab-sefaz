@@ -57,7 +57,7 @@
     width: 49%;
 
 }
-@media (max-width: 400px) {
+@media (max-width: 500px) {
     .mainResumo {
         flex-direction: column;
     }

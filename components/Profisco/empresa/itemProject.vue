@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="d-flex justify-space-between align-self-center">
-            Nome do projeto (5)
+            {{ project.projeto }} ({{ listChamadosFilter.length }})
             <v-btn 
                 @click="details = !details"
                 class="text" flat density="small">
@@ -13,7 +13,7 @@
             <div class="d-flex justify-end mt-5">
                 <ProfiscoEmpresaAddChamado />
             </div>
-            <v-list class="border mt-2">
+            <v-list class=" mt-2">
                 <v-list-item>
                     <template v-slot:prepend>
                         <div class="mr-2">
@@ -25,7 +25,7 @@
                     </template>
                     <v-list-item-title>Descrição</v-list-item-title>
                 </v-list-item>
-                <v-list-item v-for="cha, k in 5" :key="k">
+                <v-list-item v-for="cha, k in listChamadosFilter" :key="k" class="border-b">
                     <template v-slot:prepend>
                         <div class="mr-2">
                            <v-icon color="success">mdi-chevron-up</v-icon>
@@ -35,7 +35,9 @@
                             {{1 + k}}
                         </div>
                     </template>
-                    <v-list-item-title>Nome do chamado</v-list-item-title>
+                    <div class="px-2">
+                        <p>{{ cha.textSolic }}</p>
+                    </div>
                 </v-list-item>
             </v-list>
         </div>
@@ -43,10 +45,30 @@
 </template>
 
 <script>
+    import { useChamadosStore } from '@/stores/ChamadosStore'
+    const chamadosStore = useChamadosStore()
+
     export default {
         data(){
             return{
                 details: false,
+            }
+        },
+        props:{
+            project: Object
+        },
+        computed:{
+            listChamadosFilter(){
+                let list = this.listChamados
+
+                if(this.project.id){
+                    list = list.filter(x => x.idProject == this.project.id)
+                }
+
+                return list
+            },
+            listChamados(){
+                return chamadosStore.readChamados
             }
         }
     }
