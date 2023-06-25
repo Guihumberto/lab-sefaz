@@ -29,16 +29,37 @@
                 <v-list-item v-for="cha, k in listChamadosFilter" :key="k" class="border-b">
                     <template v-slot:prepend>
                         <div class="mr-2">
-                           <v-icon color="success">mdi-chevron-up</v-icon>
-                           <v-icon color="error">mdi-chevron-down</v-icon>
+                           <v-icon color="success" @click="upList(cha)">mdi-chevron-up</v-icon>
+                           <v-icon color="error" @click="downList(cha)">mdi-chevron-down</v-icon>
                         </div>
                         <div class="mr-2">
-                            {{1 + k}}
+                            {{1 + k}} | {{cha.ordemCham }}
                         </div>
                     </template>
                     <div class="px-2">
                         <p>{{ cha.textSolic }}</p>
                     </div>
+                    <template v-slot:append>
+                        <v-menu v-if="project.id">
+                            <template v-slot:activator="{ props }">
+                                <v-btn
+                                    variant="flat"
+                                    v-bind="props"
+                                    icon="mdi-dots-vertical"
+                                >
+                                </v-btn>
+                            </template>
+                            <v-list>
+                                <v-list-item
+                                v-for="(item, index) in items"
+                                :key="index"
+                                :value="index"
+                                >
+                                <v-list-item-title>{{ item.title }}</v-list-item-title>
+                                </v-list-item>
+                            </v-list>
+                        </v-menu>
+                    </template>
                 </v-list-item>
             </v-list>
             <v-alert v-else class="mt-2" icon="mdi-information-outline">
@@ -56,6 +77,11 @@
         data(){
             return{
                 details: false,
+                reverse: true,
+                items: [
+                    { id: 1, title: 'Editar' },
+                    { id: 2, title: 'Apagar' },
+                ],
             }
         },
         props:{
@@ -63,7 +89,7 @@
         },
         computed:{
             listChamadosFilter(){
-                let list = this.listChamados
+                let list = this.listChamados.sort(this.order) 
 
                 if(this.project.id){
                     list = list.filter(x => x.idProject == this.project.id)
@@ -73,6 +99,27 @@
             listChamados(){
                 return chamadosStore.readChamados
             }
+        },
+        methods:{
+            upList(item){
+                let idSeguinte = this.listChamadosFilter.find(x => x.ordemCham == item.ordemCham - 1)
+                let ordem1 = idSeguinte.ordemCham
+                let ordem2 = item.ordemCham
+                idSeguinte.ordemCham = ordem2 
+                item.ordemCham = ordem1
+            },
+            downList(item){
+                let idSeguinte = this.listChamadosFilter.find(x => x.ordemCham == item.ordemCham + 1)
+                let ordem1 = idSeguinte.ordemCham
+                let ordem2 = item.ordemCham
+                idSeguinte.ordemCham = ordem2 
+                item.ordemCham = ordem1
+            },
+            order(a, b){        
+                return this.reverse
+                ? a.ordem -  b.ordem
+                : b.ordem -  a.ordem
+            },
         }
     }
 </script>

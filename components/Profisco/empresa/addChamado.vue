@@ -85,6 +85,7 @@
             this.chamado.idProject = this.project.id
             chamadosStore.addChamados(this.chamado)
             this.clearChamado()
+            this.dialog = false
           }
         },
         clearChamado(){

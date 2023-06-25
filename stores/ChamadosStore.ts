@@ -16,9 +16,9 @@ export const useChamadosStore = defineStore("chamados", {
         textObs: '', consultor: 1, priority: 1, idProject: 2, prevdate: '', status: 5},
       {id: 2, ordem:2, oldOrdem: 2, ordemCham: 1, nrocham: 0, textSolic: 'Melhorias em tabelas do banco de dados', mod: '', 
         textObs: '', consultor: 2, priority: 1, idProject: 1, prevdate: '', status: 1},
-      {id: 3, ordem:3, oldOrdem: 3, ordemCham: 1, nrocham: 0, textSolic: 'Revisar os campos e regras da VW_RECEITA_TRIBUTOS', mod: '',
+      {id: 3, ordem:3, oldOrdem: 3, ordemCham: 2, nrocham: 0, textSolic: 'Revisar os campos e regras da VW_RECEITA_TRIBUTOS', mod: '',
         textObs: '', consultor: 1, priority: 1, idProject: 1, prevdate: '', status: 2},
-      {id: 4, ordem:4, oldOrdem: 4, ordemCham: 1, nrocham: 0, textSolic: 'Levantar e encaminhar a Techlead os itens de composição utilizados pelos sistemas', mod: '',
+      {id: 4, ordem:4, oldOrdem: 4, ordemCham: 3, nrocham: 0, textSolic: 'Levantar e encaminhar a Techlead os itens de composição utilizados pelos sistemas', mod: '',
         textObs: '', consultor: 1, priority: 1, idProject: 1, prevdate: '', status: 2},
       {id: 5, ordem:5, oldOrdem: 5, ordemCham: 1, nrocham: 0, textSolic: 'Grant no banco',  mod: '',
         textObs: '', consultor: 1, priority: 1, idProject: 2, prevdate: '', status: 5},
@@ -57,12 +57,12 @@ export const useChamadosStore = defineStore("chamados", {
   actions: {
     addChamados(item){
       console.log(item)
-
+      let max = this.qtdChamadosPorProjeto(item.idProject)
       let chamado = {
         id: Date.now(), 
-        ordem:100, 
+        ordem: 100, 
         oldOrdem: 100,
-        ordemCham: 100, 
+        ordemCham: max + 1, 
         nrocham: item.nrocham, 
         textSolic: item.textSolic, 
         mod: item.mod, 
@@ -77,6 +77,12 @@ export const useChamadosStore = defineStore("chamados", {
       console.log(chamado)
 
       this.chamados.push(chamado)
+    },
+    qtdChamadosPorProjeto(idProjeto){
+      let list = this.readChamados.filter(x => x.idProject == idProjeto)
+      list = list.map(x => x.ordemCham)
+      let max = Math.max(...list);
+      return max
     }
   },
 });
