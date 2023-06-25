@@ -20,21 +20,33 @@
           </v-card-item>
           <v-card-text class="text-center mb-5">
             <div class="text-left mb-5 bg-blue-lighten-5 pa-3">
-                <h2>Novo Chamado</h2>
-                <h3>Nome do projeto</h3>
+                <h2>{{ project.projeto }}</h2>
+                <h3>Incluir solicitação</h3>
             </div>
-            <v-form>
+            <v-form @submit.prevent="addChamado()" class="border pa-5" ref="form">
+                <v-text-field
+                    label="Número do Chamado"
+                    variant="outlined"
+                    density="comfortable"
+                    placeholder="Informe o número do chamado se houver"
+                    v-model.trim="chamado.nrocham"
+                ></v-text-field>
                 <v-text-field
                     label="Módulo"
                     variant="outlined"
                     density="comfortable"
+                    placeholder="Informe o módulo do sistema se houver"
+                    v-model.trim="chamado.mod"
                 ></v-text-field>
                 <v-textarea
-                    label="Descrição"
+                    label="Solicitação"
                     variant="outlined"
                     density="comfortable"
+                    placeholder="Texto da solicitação"
+                    :rules="[rules.required, rules.minname]"
+                    v-model.trim="chamado.textSolic"
                 ></v-textarea>
-                <v-btn block color="primary">Incluir</v-btn>
+                <v-btn type="submit" block color="primary" class="mt-5">Incluir</v-btn>
             </v-form>
           </v-card-text>
         </v-card>
@@ -43,15 +55,47 @@
   </template>
 
 <script>
+  import { useChamadosStore } from '@/stores/ChamadosStore'
+  const chamadosStore = useChamadosStore()
+
   export default {
     data () {
       return {
         dialog: false,
+        chamado: {
+          nrocham: null,
+          textSolic: '',
+          mod: '',
+          idProject: 0
+        },
+        rules:{
+            required: (value) => !!value || "Campo obrigatório",
+            email: (v) => /.+@/.test(v) || "Deve ser um e-mail válido",
+            minname: (v) => (v||'').length >= 4 || "Mínimo 4 caracteres",
+        },
       }
     },
     props:{
         project: false
-    }
+    },
+    methods: {
+        async addChamado(){
+          const { valid } = await this.$refs.form.validate()
+          if(valid){
+            this.chamado.idProject = this.project.id
+            chamadosStore.addChamados(this.chamado)
+            this.clearChamado()
+          }
+        },
+        clearChamado(){
+          this.chamado = {
+            nrocham: null,
+            textSolic: '',
+            mod: '',
+            idProject: 0
+          }
+        }
+    },
   }
 </script>
 

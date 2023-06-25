@@ -5,19 +5,19 @@
             <v-btn 
                 @click="details = !details"
                 class="text" flat density="small">
-                Detalhes 
-                <v-icon>mdi-chevron-right</v-icon>
+                Detalhes
+                <v-icon>{{ details ? 'mdi-chevron-down':'mdi-chevron-right'}}</v-icon>
             </v-btn>
         </div>
         <div v-show="details">
-            <div class="d-flex justify-space-between mt-5">
-                <ProfiscoEmpresaEditarProjeto />
-                <ProfiscoEmpresaAddChamado />
+            <div class="d-flex justify-space-between mt-5" v-if="project.id">
+                <ProfiscoEmpresaEditarProjeto :project="project" />
+                <ProfiscoEmpresaAddChamado :project="project" />
             </div>
             <v-list class=" mt-2" v-if="listChamadosFilter.length">
                 <v-list-item>
                     <template v-slot:prepend>
-                        <div class="mr-2">
+                        <div class="mr-2 text-center" style="width: 50px;">
                             #
                         </div>
                         <div class="mr-2">
@@ -68,7 +68,6 @@
                 if(this.project.id){
                     list = list.filter(x => x.idProject == this.project.id)
                 }
-
                 return list
             },
             listChamados(){

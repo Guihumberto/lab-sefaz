@@ -29,14 +29,7 @@
         class="ml-2 formInput"
       ></v-select>
     </div>
-    <v-btn 
-      variant="outlined"
-      @click="filterConcluidos = !filterConcluidos"
-      :color="filterConcluidos ? 'grey' : ''"
-      :prepend-icon="filterConcluidos ? 'mdi-eye-off-outline' : 'mdi-eye'"
-    >
-      {{filterConcluidos ? 'Ocultar concluídos' : 'Mostrar Concluídos'}}
-    </v-btn>
+    <v-checkbox label="Ocultar Concluídos" v-model="filterConcluidos"></v-checkbox>
   </div>
   <v-table hover>
     <thead>

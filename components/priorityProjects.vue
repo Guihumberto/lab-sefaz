@@ -7,15 +7,24 @@
   <v-card-item>
     <!-- filtros -->
     <div class="d-flex justify-space-between">
-      <div class="d-flex w-100">
+      <div class="wrapperForm">
+        <v-autocomplete
+          label="Projetos"
+          density="compact"
+          :items="listProjetos"
+          item-title="projeto"
+          item-value="id"
+          v-model="filterProject"
+          class="formFilter"
+        ></v-autocomplete>
         <v-select
           label="Consultor"
           density="compact"
           :items="listConsultor"
           item-title="name"
           item-value="id"
-          style="max-width: 400px;"
           v-model="filterConsult"
+          class="formFilter"
         ></v-select>
         <v-select
           label="Status"
@@ -23,30 +32,19 @@
           :items="listStatus"
           item-title="name"
           item-value="id"
-          style="max-width: 400px;"
           v-model="filterStatus"
-          class="ml-2"
+          class="formFilter"
         ></v-select>
-        <v-autocomplete
-          label="Projetos"
-          density="compact"
-          class="ml-4"
-          style="max-width: 400px;"
-          :items="listProjetos"
-          item-title="projeto"
-          item-value="id"
-          v-model="filterProject"
-        ></v-autocomplete>
       </div>
-      <v-btn
+      <!-- <v-btn
         :icon="reverse ? 'mdi-order-numeric-ascending' : 'mdi-order-numeric-descending'"
         rounded="sm"
         elevation="4"
         variant="tonal"
         density="compact"
         @click="reverse = !reverse"
-        class="mx-2"
-      />
+        class="ml-2"
+      /> -->
     </div>
   </v-card-item>
   <v-card-item>
@@ -211,3 +209,23 @@ export default {
   }
 }
 </script>
+
+<style> 
+.wrapperForm{
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  align-items: center;
+}
+.formFilter {
+  margin-left: 5px;
+}
+@media (max-width: 500px) {
+  .wrapperForm {
+    display: block;
+  }
+  .formFilter {
+    margin-left: 0;
+  }
+}
+</style>

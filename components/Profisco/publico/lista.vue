@@ -29,14 +29,7 @@
           class="ml-2 formInput"
         ></v-select>
       </div>
-      <v-btn 
-        variant="outlined"
-        @click="filterConcluidos = !filterConcluidos"
-        :color="filterConcluidos ? 'grey' : ''"
-        :prepend-icon="filterConcluidos ? 'mdi-eye-off-outline' : 'mdi-eye'"
-      >
-        {{filterConcluidos ? 'Ocultar concluídos' : 'Mostrar Concluídos'}}
-      </v-btn>
+      <v-checkbox label="Ocultar Concluídos" v-model="filterConcluidos"></v-checkbox>
     </div>
     <v-table hover>
       <thead>
@@ -76,7 +69,7 @@
           :key="item.name"
         >
           <td class="text-center"> 
-            <v-icon color="success" size="small">mdi-arrow-up</v-icon>
+            <v-icon :color="iconFila(item).color" size="small" :icon="iconFila(item).icon" />
           </td>
           <td class="text-center">{{ item.ordem }}</td>
           <!-- <td>{{ item.nrocham }}</td> -->
@@ -187,6 +180,17 @@
           default: 'blue'
         }
       },
+      iconFila(item){
+        
+        if(item.ordem == item.oldOrdem){
+          return {icon:'mdi-square', color: 'blue'}
+        } else if(item.ordem < item.oldOrdem) {
+          return {icon:'mdi-arrow-up', color: 'success'}
+        } else {
+          return {icon:'mdi-arrow-down', color: 'error'}
+        }
+        
+      },
       order(a, b){        
           return this.reverse
           ? a.ordem -  b.ordem
@@ -206,7 +210,7 @@
 .formInput {
     max-width: 33,33%;
   }
-@media (max-width: 400px) {
+@media (max-width: 500px) {
   .menuFilter {
     flex-direction: column;
   }
