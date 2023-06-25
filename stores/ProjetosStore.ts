@@ -6,7 +6,8 @@ export const useProjetosStore = defineStore("projetos", {
       {id: 0, name: 'Todas', active: true},
       {id: 1, name: 'Techlead', active: true},
       {id: 2, name: 'EDS', active: true},
-      {id: 3, name: 'ARGO', active: true}
+      {id: 3, name: 'ARGO', active: true},
+      {id: 4, name: 'CIAT', active: true}
     ],
     projetos:[
       {id:0, projeto: 'Todos', idColider: 0, idEmpresa: 0, active: true},
@@ -28,12 +29,14 @@ export const useProjetosStore = defineStore("projetos", {
   actions: {
     addProjeto(item){
       let projeto = {
-        id: item.id,
-        ordem: item.ordem,
-        projeto: item.projeto,
+        id: Date.now(),
+        projeto: item.name,
+        abrevProjeto: '',
+        idLider: null,
         idColider: null, 
-        empresa:'',
-        active: true
+        idEmpresa: item.idEmpresa,
+        active: true,
+        dateCreate: Date.now()
       }
       this.projetos.push(projeto)
     },

@@ -10,10 +10,11 @@
             </v-btn>
         </div>
         <div v-show="details">
-            <div class="d-flex justify-end mt-5">
+            <div class="d-flex justify-space-between mt-5">
+                <ProfiscoEmpresaEditarProjeto />
                 <ProfiscoEmpresaAddChamado />
             </div>
-            <v-list class=" mt-2">
+            <v-list class=" mt-2" v-if="listChamadosFilter.length">
                 <v-list-item>
                     <template v-slot:prepend>
                         <div class="mr-2">
@@ -40,6 +41,9 @@
                     </div>
                 </v-list-item>
             </v-list>
+            <v-alert v-else class="mt-2" icon="mdi-information-outline">
+                Não há chamados abertos.
+            </v-alert>
         </div>
     </div>
 </template>

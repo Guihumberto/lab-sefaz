@@ -17,19 +17,28 @@
         </div>
 
         <div>
-            <v-form class="d-flex" v-if="filterEmpresa">
+            <v-form 
+                @submit.prevent="addProject(project)"
+                class="d-flex" v-if="filterEmpresa"
+                ref="form"
+            >
                 <v-text-field
                     label="Incluir novo projeto"
                     prepend-inner-icon="mdi-plus"
                     variant="outlined"
                     density="compact"
-                    placeholder="Digite o nome do Projto"
+                    placeholder="Digite o nome do Projeto"
                     v-model.trim="project.name"
+                    :rules="[rules.required, rules.minname]"
+                    clearable
                 >
                 </v-text-field>
                 <v-btn 
-                    @click="addProject(project)"
-                    class="ml-2" color="success">Add</v-btn>
+                    type="submit"
+                    class="ml-2" 
+                    color="success">
+                    Incluir
+                </v-btn>
             </v-form>
             <p class="text-error" v-else>Selecione uma empresa para incluir um projeto</p>
         </div>
@@ -38,9 +47,15 @@
             <div 
                 class="projeto"
                 v-for="item, i in listProjectsFilter" :key="i"
+                v-if="listProjectsFilter.length"
             >
                 <ProfiscoEmpresaItemProject :project="item" />
             </div>
+            <v-alert 
+                v-else
+                icon="mdi-information-outline">
+                Não há projetos cadastrados.
+            </v-alert>
         </div>
     </div>
 </template>
@@ -52,11 +67,15 @@
     export default {
         data(){
             return {
-                listProjects: [],
                 filterEmpresa: 0,
                 project: {
                     name: '',
-                    chamados: []
+                    idEmpresa: 0
+                },
+                rules:{
+                    required: (value) => !!value || "Campo obrigatório",
+                    email: (v) => /.+@/.test(v) || "Deve ser um e-mail válido",
+                    minname: (v) => (v||'').length >= 4 || "Mínimo 4 caracteres",
                 },
             }
         },
@@ -76,9 +95,14 @@
             }
         },
         methods:{
-            addProject(item){
-                this.listProjects.push(item)
-                this.project.name = ''
+            async addProject(item){
+                const { valid } = await this.$refs.form.validate()
+                if(valid){
+                    this.project.idEmpresa = this.filterEmpresa
+                    projetosStore.addProjeto(item)
+                    this.project.name = ''
+                    this.project.idEmpresa = 0
+                }
             },
             nameEmpresa(item){
                 const nameEmpresa = this.listEmpresas.find(x => x.id == item)

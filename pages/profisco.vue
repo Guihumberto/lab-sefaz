@@ -5,8 +5,8 @@
         <div class="d-flex justify-space-between align-self-center">
             <h4 class="my-5">Resumo</h4>
             <div class="d-flex">
-                <!-- <ProfiscoMenu /> -->
-                <ProfiscoLogin />
+                <ProfiscoMenu />
+                <!-- <ProfiscoLogin /> -->
             </div>
         </div>
         <ProfiscoPublicoResumos />
