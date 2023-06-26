@@ -56,7 +56,7 @@
       >
         <template v-slot:prepend>
           <span class="pr-5 text">
-            {{ item.ordem }}
+            {{ item.ordem }} | {{ item.ordemCham }}
           </span>
         </template>
         <v-list-item-title> 
@@ -65,12 +65,16 @@
             {{ nameStatus(item.status) }}
           </v-chip>
         </v-list-item-title>
+        <v-list-item-subtitle class="my-1">
+          <span>Empresa: </span> {{ nameEmpresa(item.idProject) }}
+        </v-list-item-subtitle>
         <v-list-item-subtitle>
-          {{ item.textSolic }}
+          <span>Solicitação: </span>{{ item.textSolic }}
         </v-list-item-subtitle>
        
         <template v-slot:append>
-          <span class="d-none d-sm-flex">
+          <profisco-sefaz-direcionar-consultor :project="item" v-if="!item.consultor" />
+          <span class="d-none d-sm-flex" v-else>
             {{ nameConsultor(item.consultor) }}
           </span>
           <div class="d-flex flex-column ml-5">
@@ -149,6 +153,9 @@ export default {
       let list = this.listChamados.map( x => x.ordem)
       let maior = Math.max.apply(null, list );
       return maior
+    },
+    listEmpresa(){
+      return projetosStore.readEmpresa
     }
   },
   methods:{
@@ -205,7 +212,11 @@ export default {
       let ordem2 = item.ordem
       idSeguinte.ordem = ordem2 
       item.ordem = ordem1
-    }
+    },
+    nameEmpresa(item){
+      const nameEmpresa = this.listEmpresa.find(x => x.id == item)
+      return nameEmpresa.name
+    },
   }
 }
 </script>

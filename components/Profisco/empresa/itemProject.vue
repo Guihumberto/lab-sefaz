@@ -20,7 +20,7 @@
             <v-list class=" mt-2" v-if="listChamadosFilter.length">
                 <v-list-item>
                     <template v-slot:prepend>
-                        <div class="mr-2 text-center" style="width: 50px;">
+                        <div class="mr-2 text-center" style="width: 50px;" v-if="project.id">
                             #
                         </div>
                         <div class="mr-2">
@@ -31,15 +31,16 @@
                 </v-list-item>
                 <v-list-item 
                     v-for="cha, k in listChamadosFilter" :key="k" 
-                    class="border-b chamados"
+                    class="border-b"
+                    :class="alterPriority ? 'alterPriority' : ''"
                 >
                     <template v-slot:prepend>
-                        <div class="mr-2">
+                        <div class="mr-2" v-if="project.id">
                            <v-icon color="success" @click="upList(cha)">mdi-chevron-up</v-icon>
                            <v-icon color="error" @click="downList(cha)">mdi-chevron-down</v-icon>
                         </div>
-                        <div class="mr-2">
-                            {{1 + k}} | {{cha.ordemCham }}
+                        <div class="mr-2 nroordem">
+                            {{1 + k}}
                         </div>
                     </template>
                     <div class="px-2">
@@ -84,6 +85,7 @@
             return{
                 details: false,
                 reverse: true,
+                alterPriority: false,
                 items: [
                     { id: 1, title: 'Editar' },
                     { id: 2, title: 'Apagar' },
@@ -108,6 +110,7 @@
         },
         methods:{
             upList(item){
+                this.alterClassPriorit()
                 let idSeguinte = this.listChamadosFilter.find(x => x.ordemCham == item.ordemCham - 1)
                 let ordem1 = idSeguinte.ordemCham
                 let ordem2 = item.ordemCham
@@ -115,6 +118,7 @@
                 item.ordemCham = ordem1
             },
             downList(item){
+                this.alterClassPriorit()
                 let idSeguinte = this.listChamadosFilter.find(x => x.ordemCham == item.ordemCham + 1)
                 let ordem1 = idSeguinte.ordemCham
                 let ordem2 = item.ordemCham
@@ -126,12 +130,30 @@
                 ? a.ordemCham -  b.ordemCham
                 : b.ordemCham -  a.ordemCham
             },
+            alterClassPriorit(){
+                    this.alterPriority = !this.alterPriority
+                setTimeout(() => {
+                    this.alterPriority = !this.alterPriority
+                }, 1000)
+            }
         }
     }
 </script>
 
 <style scoped>
-.chamados p {
+.alterPriority {
+    background: rgb(213, 231, 177);
+    animation: aparecer 1s ease forwards;
+    animation-delay: .5s;
     transition: .5s;
+}
+.alterPriority .nroordem {
+    opacity: 0;
+    transition: .5s;
+}
+@keyframes aparecer {
+  100%{
+    opacity: 1;
+  }
 }
 </style>

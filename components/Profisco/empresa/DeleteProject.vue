@@ -12,7 +12,7 @@
             variant="outlined"
             class="mr-1"
           >
-            Exluir
+            Excluir
           </v-btn>
         </template>
   
@@ -29,7 +29,7 @@
             <p>O projeto será excluído junto com os chamados a ele vinculados</p>
             <p>Tem certeza que deseja excluir esse projeto?</p>
             <div class="my-5 text-center">
-              <v-btn color="grey" flat>Não</v-btn>
+              <v-btn color="grey" flat @click="dialog = false">Não</v-btn>
               <v-btn class="ml-2" color="error" flat>Excluir</v-btn>
             </div>
            </div>
