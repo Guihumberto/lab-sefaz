@@ -11,7 +11,10 @@
         </div>
         <div v-show="details">
             <div class="d-flex justify-space-between mt-5" v-if="project.id">
-                <ProfiscoEmpresaEditarProjeto :project="project" />
+                <div class="d-flex">
+                    <ProfiscoEmpresaEditarProjeto :project="project" />
+                    <ProfiscoEmpresaDeleteProject :project="project" />
+                </div>
                 <ProfiscoEmpresaAddChamado :project="project" />
             </div>
             <v-list class=" mt-2" v-if="listChamadosFilter.length">
@@ -26,7 +29,10 @@
                     </template>
                     <v-list-item-title>Descrição</v-list-item-title>
                 </v-list-item>
-                <v-list-item v-for="cha, k in listChamadosFilter" :key="k" class="border-b">
+                <v-list-item 
+                    v-for="cha, k in listChamadosFilter" :key="k" 
+                    class="border-b chamados"
+                >
                     <template v-slot:prepend>
                         <div class="mr-2">
                            <v-icon color="success" @click="upList(cha)">mdi-chevron-up</v-icon>
@@ -117,13 +123,15 @@
             },
             order(a, b){        
                 return this.reverse
-                ? a.ordem -  b.ordem
-                : b.ordem -  a.ordem
+                ? a.ordemCham -  b.ordemCham
+                : b.ordemCham -  a.ordemCham
             },
         }
     }
 </script>
 
-<style lang="scss" scoped>
-
+<style scoped>
+.chamados p {
+    transition: .5s;
+}
 </style>
