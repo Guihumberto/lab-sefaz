@@ -35,10 +35,7 @@
       <thead>
         <tr>
           <th class="text-center">
-            #
-          </th>
-          <th class="text-left">
-            Prioridade
+            Ordem
           </th>
           <!-- <th class="text-left">
             Nº Chamado
@@ -69,9 +66,12 @@
           :key="item.name"
         >
           <td class="text-center"> 
-            <v-icon :color="iconFila(item).color" size="small" :icon="iconFila(item).icon" />
-          </td>
-          <td class="text-center">{{ item.ordem }}</td>
+            <v-icon 
+              :color="iconFila(item).color" 
+              class="mr-1"
+              size="small" 
+              :icon="iconFila(item).icon" />
+            {{ item.ordem }}</td>
           <!-- <td>{{ item.nrocham }}</td> -->
           <td>{{ item.textSolic }}</td>
           <td> {{ nameProject(item.idProject).projeto }}</td>
