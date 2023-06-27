@@ -150,6 +150,9 @@
         return nameEmpresa.name
       },
       nameConsultor(item){
+        if(!item){
+          return 'Não direcionado'
+        }
         const list = this.listConsultor.find( x => x.id == item)
         return list.name.split(' ')[0]
       },
