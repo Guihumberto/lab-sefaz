@@ -66,7 +66,8 @@
           nrocham: null,
           textSolic: '',
           mod: '',
-          idProject: 0
+          idProject: 0,
+          consultor: 0
         },
         rules:{
             required: (value) => !!value || "Campo obrigatório",

@@ -26,7 +26,7 @@
                 <h3>{{ project.textSolic }}</h3>
             </div>
             <p class="text-left pb-5 pl-2">Selecione o consultor.</p>
-            <v-form>
+            <v-form @submit.prevent="updateChamado()" ref="form">
               <v-select
                 label="Consultor"
                 density="compact"
@@ -37,7 +37,7 @@
                 v-model="filterConsult"
                 class="formFilter"
               ></v-select>
-              <v-btn :disabled="!filterConsult" block color="primary">Direcionar</v-btn>
+              <v-btn type="submit" :disabled="!filterConsult" block color="primary">Direcionar</v-btn>
             </v-form>
           </v-card-text>
         </v-card>
@@ -48,6 +48,8 @@
 <script>
 import { useConsultoresStore } from '@/stores/ConsultoresStore'
 const consultorStore = useConsultoresStore()
+import { useChamadosStore } from '@/stores/ChamadosStore'
+const chamadosStore = useChamadosStore()
 
   export default {
     data () {
@@ -76,7 +78,17 @@ const consultorStore = useConsultoresStore()
 
         return newList
       }
-    }
+    },
+    methods: {
+      async updateChamado(){
+        const { valid } = await this.$refs.form.validate()
+          if(valid){
+              this.project.consultor = this.filterConsult
+              chamadosStore.updateChamado(this.project)
+              this.filterConsult = 0
+          }
+      }
+    },
   }
 </script>
 

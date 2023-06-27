@@ -56,7 +56,6 @@ export const useChamadosStore = defineStore("chamados", {
   },
   actions: {
     addChamados(item){
-      console.log(item)
       let max = this.qtdChamadosPorProjeto(item.idProject)
       let chamado = {
         id: Date.now(), 
@@ -67,16 +66,17 @@ export const useChamadosStore = defineStore("chamados", {
         textSolic: item.textSolic, 
         mod: item.mod, 
         textObs: '', 
-        consultor: 0, 
+        consultor: item.consultor, 
         priority: 1, 
         idProject: item.idProject, 
         prevdate: '', 
         status: 0
       }
 
-      console.log(chamado)
-
       this.chamados.push(chamado)
+    },
+    updateChamado(item){
+      console.log('atualizar', item)
     },
     qtdChamadosPorProjeto(idProjeto){
       let list = this.readChamados.filter(x => x.idProject == idProjeto)
