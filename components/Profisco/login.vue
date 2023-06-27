@@ -21,13 +21,14 @@
           </v-card-item>
           <v-card-text class="text-center">
             <h2 class="mb-5">Login</h2>
-            <v-form>
+            <v-form @submit.prevent="login()" ref="form">
                 <v-text-field
                     label="CPF"
                     variant="outlined"
                     density="comfortable"
+                    v-model="user.cpf"
                 ></v-text-field>
-                <v-btn block color="primary">Continuar</v-btn>
+                <v-btn type="submit" block color="primary">Continuar</v-btn>
             </v-form>
           </v-card-text>
           <v-card-actions>
@@ -39,12 +40,24 @@
   </template>
 
 <script>
+  import { useLoginStore } from '@/stores/LoginStore'
+  const loginStore = useLoginStore()
+
   export default {
     data () {
       return {
         dialog: false,
+        user: {
+          cpf: null,
+          password: null
+        }
       }
     },
+    methods:{
+      login(){
+        loginStore.login(this.user.cpf)
+      }
+    }
   }
 </script>
 

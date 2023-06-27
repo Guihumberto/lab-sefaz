@@ -56,11 +56,13 @@ export const useChamadosStore = defineStore("chamados", {
   },
   actions: {
     addChamados(item){
+      let maxTotal = this.qtdChamadosTotal()
       let max = this.qtdChamadosPorProjeto(item.idProject)
+    
       let chamado = {
         id: Date.now(), 
-        ordem: 100, 
-        oldOrdem: 100,
+        ordem: maxTotal + 1, 
+        oldOrdem: maxTotal + 1,
         ordemCham: max + 1, 
         nrocham: item.nrocham, 
         textSolic: item.textSolic, 
@@ -77,6 +79,12 @@ export const useChamadosStore = defineStore("chamados", {
     },
     updateChamado(item){
       console.log('atualizar', item)
+    },
+    qtdChamadosTotal(){
+      let list = this.readChamados
+      list = list.map(x => x.ordem)
+      let max = Math.max(...list);
+      return max
     },
     qtdChamadosPorProjeto(idProjeto){
       let list = this.readChamados.filter(x => x.idProject == idProjeto)

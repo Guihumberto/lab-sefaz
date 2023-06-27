@@ -5,8 +5,8 @@
         <div class="d-flex justify-space-between align-self-center">
             <h4 class="my-5">Resumo</h4>
             <div class="d-flex">
-                <ProfiscoMenu />
-                <!-- <ProfiscoLogin /> -->
+                <ProfiscoMenu v-if="isLogin" />
+                <ProfiscoLogin v-else />
             </div>
         </div>
         <ProfiscoPublicoResumos />
@@ -16,8 +16,15 @@
 </template>
 
 <script>
+    import { useLoginStore } from '@/stores/LoginStore'
+    const loginStore = useLoginStore()
+
     export default {
-        
+        computed:{
+            isLogin(){
+                return loginStore.readLogin
+            }
+        }
     }
 </script>
 
