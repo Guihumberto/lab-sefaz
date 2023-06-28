@@ -88,7 +88,7 @@
 
     setTimeout(() => {
         resources.loadChange()
-    }, "1000");
+    }, "1500");
 
     const menu = [
         {name: "Home", icon: "mdi-home", url:"/", show: true},

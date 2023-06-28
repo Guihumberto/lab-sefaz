@@ -1,22 +1,11 @@
 import { defineStore } from "pinia";
+import { getAuth } from "firebase/auth";
+import { getDatabase, ref, onValue, set } from "firebase/database";
 
 export const useProjetosStore = defineStore("projetos", {
   state: () => ({
-    empresas: [
-      {id: 0, name: 'Todas', active: true},
-      {id: 1, name: 'Techlead', active: true},
-      {id: 2, name: 'EDS', active: true},
-      {id: 3, name: 'ARGO', active: true},
-      {id: 4, name: 'CIAT', active: true}
-    ],
-    projetos:[
-      {id:0, projeto: 'Todos', idColider: 0, idEmpresa: 0, active: true},
-      {id:1, projeto: 'Conta Corrente Parametrizada - CCP', idColider: 1, idEmpresa: 1, active: true},
-      {id:2, projeto: 'Vistoria Mobile - VM', idColider: 2, idEmpresa: 1, active: true},
-      {id:3, projeto: 'Registro de passagem Automática - RPA', idColider: 1, idEmpresa: 1, active: true},
-      {id:4, projeto: 'ITCD', idColider: 1, idEmpresa: 2, active: true},
-      {id:5, projeto: 'Arrecadação', idColider: 1, idEmpresa: 3, active: true},
-    ],
+    empresas: [],
+    projetos:[],
   }),
   getters: {
     readEmpresa(){
@@ -40,5 +29,33 @@ export const useProjetosStore = defineStore("projetos", {
       }
       this.projetos.push(projeto)
     },
+    carga(){
+      this.cargaProjetos()
+      this.cargaEmpresa()
+    },
+    cargaProjetos(){
+      const db = getDatabase();
+      const starCountRef = ref(db, 'comite/projetos');
+
+      onValue(starCountRef, (snapshot) => {
+        const data = snapshot.val();
+        this.projetos = []
+        for (let id in data){
+          this.projetos.push(data[id])
+        }
+      });
+    },
+    cargaEmpresa(){
+      const db = getDatabase();
+      const starCountRef = ref(db, 'comite/empresas');
+
+      onValue(starCountRef, (snapshot) => {
+        const data = snapshot.val();
+        this.empresas = []
+        for (let id in data){
+          this.empresas.push(data[id])
+        }
+      });
+    }
   },
 });

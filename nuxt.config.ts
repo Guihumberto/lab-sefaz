@@ -1,4 +1,4 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
+
 export default defineNuxtConfig({
     head: {
         meta: [],
@@ -32,6 +32,17 @@ export default defineNuxtConfig({
             },
           }
         }
+    },
+    publicRuntimeConfig: {
+      FIREBASE_API_KEY: process.env.FIREBASE_API_KEY
+    },
+    privateRuntimeConfig: {
+      FIREBASE_API_KEY: process.env.FIREBASE_API_KEY
+    },
+    runtimeConfig: {
+      apiSecret: process.env.FIREBASE_API_KEY, 
+      public: {
+        apiBase: process.env.FIREBASE_API_KEY,      
       }
-
+    },
 })

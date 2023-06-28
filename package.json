@@ -14,6 +14,7 @@
     "@mdi/font": "^7.1.96",
     "@pinia/nuxt": "^0.4.7",
     "@vueuse/motion": "^2.0.0-beta.23",
+    "firebase": "^9.23.0",
     "pinia": "^2.0.33",
     "sass": "^1.59.2",
     "shortid": "^2.2.16",

@@ -1,13 +1,9 @@
 import { defineStore } from "pinia";
+import { getDatabase, ref, onValue, set } from "firebase/database";
 
 export const useConsultoresStore = defineStore("consultores", {
   state: () => ({
-    consultores:[
-      {id:0, cpf:'000000', name: 'Todos',active: true},
-      {id:1, cpf:111111, name: 'Arão Alves de Farias', email: 'arao.farias@sefaz.ma.gov.br', active: true},
-      {id:2, cpf:222222, name: 'Nielson de Jesus Lima Rocha', email: 'nielson.rocha@sefaz.ma.gov.br', active: true},
-    ],
-
+    consultores:[],
   }),
   getters: {
     readConsultores(){
@@ -23,6 +19,21 @@ export const useConsultoresStore = defineStore("consultores", {
         active: true
       }
       this.consultores.push(consultor)
+    },
+    carga(){
+      this.cargaConsultores()
+    },
+    cargaConsultores(){
+      const db = getDatabase();
+      const starCountRef = ref(db, 'comite/consultores');
+
+      onValue(starCountRef, (snapshot) => {
+        const data = snapshot.val();
+        this.consultores = []
+        for (let id in data){
+          this.consultores.push(data[id])
+        }
+      });
     }
   },
 });
