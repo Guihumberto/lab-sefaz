@@ -77,7 +77,10 @@
           <span class="d-none d-sm-flex" v-else>
             {{ nameConsultor(item.consultor) }}
           </span>
-          <div class="d-flex flex-column ml-5">
+          <div 
+            class="d-flex flex-column ml-5"
+            v-if="!filterConsult & !filterProject"
+          >
             <v-btn 
               color="blue"
               rounded="0"
@@ -97,8 +100,27 @@
               @click="downList(item)"
             >
               <v-icon>mdi-chevron-down</v-icon>
-          </v-btn>
+            </v-btn>
           </div>
+          <v-menu>
+            <template v-slot:activator="{ props }">
+              <v-btn
+                v-bind="props"
+                variant="flat"
+                class="btnDots"
+              >
+                <v-icon class="dots">mdi-dots-vertical</v-icon>
+              </v-btn>
+            </template>
+            <v-list>
+              <v-list-item>
+                <Profisco-sefaz-editChamado :project="item"/>
+              </v-list-item>
+              <v-list-item>
+                <Profisco-sefaz-removeChamado :project="item" />
+              </v-list-item>
+            </v-list>
+          </v-menu>
         </template>
       </v-list-item>
     </v-list>
@@ -120,7 +142,7 @@ export default {
     reverse: true,
     filterConsult: 0,
     filterProject: 0,
-    filterStatus: 6
+    filterStatus: 6,
   }),
   computed:{
     listChamados(){
@@ -205,13 +227,17 @@ export default {
       let ordem2 = item.ordem
       idSeguinte.ordem = ordem2 
       item.ordem = ordem1
+      chamadosStore.updateFb(idSeguinte)
+      chamadosStore.updateFb(item)
     },
     downList(item){
       let idSeguinte = this.listChamados.find(x => x.ordem == item.ordem + 1)
       let ordem1 = idSeguinte.ordem
       let ordem2 = item.ordem
       idSeguinte.ordem = ordem2 
-      item.ordem = ordem1
+      item.ordem = ordem1 
+      chamadosStore.updateFb(idSeguinte)
+      chamadosStore.updateFb(item)
     },
     nameEmpresa(item){
       const nameEmpresa = this.listEmpresa.find(x => x.id == item)
@@ -221,7 +247,7 @@ export default {
 }
 </script>
 
-<style> 
+<style scoped> 
 .wrapperForm{
   display: flex;
   width: 100%;
@@ -230,6 +256,10 @@ export default {
 }
 .formFilter {
   margin-left: 5px;
+}
+.v-btn--size-default {
+  min-width: 1px;
+  padding: 0;
 }
 @media (max-width: 500px) {
   .wrapperForm {

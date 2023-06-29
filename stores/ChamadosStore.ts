@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { getAuth } from "firebase/auth";
-import { getDatabase, ref, onValue, set } from "firebase/database";
+import { getDatabase, ref, onValue, set, remove, update } from "firebase/database";
 
 export const useChamadosStore = defineStore("chamados", {
   state: () => ({
@@ -65,9 +65,8 @@ export const useChamadosStore = defineStore("chamados", {
       }
 
       this.chamados.push(chamado)
-    },
-    updateChamado(item){
-      console.log('atualizar', item)
+      this.addFb(chamado)
+
     },
     qtdChamadosTotal(){
       let list = this.readChamados
@@ -81,5 +80,22 @@ export const useChamadosStore = defineStore("chamados", {
       let max = Math.max(...list);
       return max
     },
+    // firebase
+    addFb(item){
+      const db = getDatabase();
+      const link = ref(db, `comite/chamados/${item.id}`);
+      set(link, item);
+    },
+    updateFb(item){
+      const db = getDatabase();
+      const link = ref(db, `comite/chamados/${item.id}`);
+      update(link, item);
+    },
+    removeFb(item){
+      const db = getDatabase();
+      const link = ref(db, `comite/chamados/${item.id}`);
+      remove(link)
+    }
   },
+  
 });

@@ -67,24 +67,31 @@
                     </v-list>
                   </v-menu>
                 </div>
-  
+                <div class="text-left mt-5">
+                  <v-btn 
+                  v-if="project.status != 0"
+                    @click="infoAdd = !infoAdd"
+                    variant="text" size="small">Informações adicionais</v-btn>
+                </div>
               </div>
-              <v-form class="border pa-5" v-if="project.status != 0">
-                  <v-text-field
-                      label="Previsão da conclusão"
-                      type="date"
-                      variant="outlined"
-                      density="comfortable"
-                      v-if="!project.prevdate"
-                  ></v-text-field>
-                  <v-textarea
-                      label="Observação"
-                      variant="outlined"
-                      density="comfortable"
-                      v-if="!project.textObs"
-                  ></v-textarea>
-                  <v-btn block color="primary">Salvar</v-btn>
-              </v-form>
+              <div v-show="infoAdd">
+                <v-form class="border pa-5" v-if="project.status != 0">
+                    <v-text-field
+                        label="Previsão da conclusão"
+                        type="date"
+                        variant="outlined"
+                        density="comfortable"
+                        v-if="!project.prevdate"
+                    ></v-text-field>
+                    <v-textarea
+                        label="Observação"
+                        variant="outlined"
+                        density="comfortable"
+                        v-if="!project.textObs"
+                    ></v-textarea>
+                    <v-btn block color="primary">Salvar</v-btn>
+                </v-form>
+              </div>
             </div>
           </v-card-text>
         </v-card>
@@ -103,7 +110,9 @@
     data () {
       return {
         dialog: false,
+        infoAdd: false,
         items: [
+          {id: 0, title: 'Aguardando'},
           {id: 2, title: 'Validação'},
           {id: 3, title: 'Impedimento/Pendência'}, 
           {id: 4, title: 'Cancelado'},
@@ -124,6 +133,7 @@
     methods:{
       changeStatus(status){
         this.project.status = status
+        chamadosStore.updateFb(this.project)
       },
       nameStatus(item){
         const nameStatus = this.listStatus.find(x => x.id == item)

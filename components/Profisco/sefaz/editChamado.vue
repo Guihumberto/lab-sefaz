@@ -1,5 +1,5 @@
 <template>
-    <div class="text-right">
+    <div class="text-left">
       <v-dialog
         v-model="dialog"
         width="500"
@@ -7,10 +7,10 @@
         <template v-slot:activator="{ props }">
           <v-btn
             size="small" 
-            color="primary"
+            variant="text"
             v-bind="props"
           >
-            novo chamado
+           Editar
           </v-btn>
         </template>
   
@@ -20,7 +20,7 @@
           </v-card-item>
           <v-card-text class="text-center mb-5">
             <div class="text-left mb-5 bg-blue-lighten-5 pa-3">
-                <h2>Novo Chamado</h2>
+                <h2>Editar Chamado</h2>
                 <h3>Inclusão</h3>
             </div>
             <v-form @submit.prevent="addChamado()" ref="form">
@@ -58,6 +58,7 @@
                 <v-radio-group
                   v-model.trim="chamado.consultor"
                   inline
+                  :rules="[rules.required]"
                   class="mt-2"
                 >
                   <v-radio 
@@ -99,11 +100,11 @@
       return {
         dialog: false,
         chamado: {
-          nrocham: null,
-          textSolic: '',
-          mod: '',
-          idProject: null,
-          consultor: 0
+          nrocham: this.project.nrocham,
+          textSolic: this.project.textSolic,
+          mod: this.project.mod,
+          idProject: this.project.idProject,
+          consultor: this.project.consultor
         },
         rules:{
             required: (value) => !!value || "Campo obrigatório",
@@ -127,7 +128,14 @@
       async addChamado(){
         const { valid } = await this.$refs.form.validate()
           if(valid){
-            chamadosStore.addChamados(this.chamado)
+
+            this.project.nrocham = this.chamado.nrocham
+            this.project.textSolic = this.chamado.textSolic
+            this.project.mod = this.chamado.mod
+            this.project.idProject = this.chamado.idProject
+            this.project.consultor = this.chamado.consultor
+
+            chamadosStore.updateFb(this.project)
             this.clearChamado()
             this.dialog = false
           }

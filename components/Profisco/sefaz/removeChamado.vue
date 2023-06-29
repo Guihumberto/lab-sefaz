@@ -1,18 +1,17 @@
 <template>
-    <div class="text-center">
+    <div class="text-left">
       <v-dialog
         v-model="dialog"
         width="500"
       >
         <template v-slot:activator="{ props }">
           <v-btn
-            size="small" 
-            color="primary"
+            size="small"
             v-bind="props"
-            variant="outlined"
+            variant="text"
             flat
           >
-            Direcionar
+            Remover
           </v-btn>
         </template>
   
@@ -22,22 +21,13 @@
           </v-card-item>
           <v-card-text class="text-center mb-5">
             <div class="text-left mb-5 bg-blue-lighten-5 pa-3">
-                <h2>Direcionar</h2>
+                <h2>Remover</h2>
                 <h3>{{ project.textSolic }}</h3>
             </div>
-            <p class="text-left pb-5 pl-2">Selecione o consultor.</p>
-            <v-form @submit.prevent="updateChamado()" ref="form">
-              <v-select
-                label="Consultor"
-                density="compact"
-                variant="outlined"
-                :items="listConsultorMod"
-                item-title="name"
-                item-value="id"
-                v-model="filterConsult"
-                class="formFilter"
-              ></v-select>
-              <v-btn type="submit" :disabled="!filterConsult" block color="primary">Direcionar</v-btn>
+            <p class="text-left pb-5 pl-2">Confirma a exclusão deste chamado?</p>
+            <v-form @submit.prevent="deleteChamado()" ref="form">
+              <v-btn @click="dialog = false" variant="outlined">Não</v-btn>
+              <v-btn color="error" flat class="ml-2" type="submit">Excluir</v-btn>
             </v-form>
           </v-card-text>
         </v-card>
@@ -80,12 +70,11 @@ const chamadosStore = useChamadosStore()
       }
     },
     methods: {
-      async updateChamado(){
+      async deleteChamado(){
         const { valid } = await this.$refs.form.validate()
           if(valid){
-              this.project.consultor = this.filterConsult
-              chamadosStore.updateFb(this.project)
-              this.filterConsult = 0
+              chamadosStore.removeFb(this.project)
+              this.dialog = false
           }
       }
     },
