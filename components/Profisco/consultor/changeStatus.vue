@@ -75,23 +75,41 @@
                 </div>
               </div>
               <div v-show="infoAdd">
-                <v-form class="border pa-5" v-if="project.status != 0">
-                    <v-text-field
-                        label="Previsão da conclusão"
-                        type="date"
-                        variant="outlined"
-                        density="comfortable"
-                        v-if="!project.prevdate"
-                    ></v-text-field>
-                    <v-textarea
-                        label="Observação"
-                        variant="outlined"
-                        density="comfortable"
-                        v-if="!project.textObs"
-                    ></v-textarea>
-                    <v-btn block color="primary">Salvar</v-btn>
-                </v-form>
+                <div v-if="!project.prevdate">
+                  <v-form 
+                    @submit.prevent="infoAddUpdate()"
+                    class="border pa-5" v-if="project.status != 0" ref="form">
+                      <v-text-field
+                          label="Previsão da conclusão"
+                          type="date"
+                          variant="outlined"
+                          density="comfortable"
+                          :rules="[rules.required]"
+                          v-model.trim="infoUpdate.prevdate"
+                      ></v-text-field>
+                      <!-- <v-textarea
+                          label="Observação"
+                          variant="outlined"
+                          density="comfortable"
+                          v-if="!project.textObs"
+                          v-model.trim="infoUpdate.textObs"
+                      ></v-textarea> -->
+                      <v-btn type="submit" block color="primary">Salvar</v-btn>
+                  </v-form>
+                </div>
               </div>
+              <div class="d-flex justify-space-between align-center" v-if="project.prevdate">
+                  <p>
+                    <span class="font-weight-bold">Previsão de Conclusão: </span>
+                    {{ project.prevdate }}
+                  </p> 
+                  <v-btn 
+                    variant="outlined" class="mr-1"
+                    @click="editPrevDate()"
+                  >
+                    <v-icon>mdi-calendar-edit</v-icon>
+                  </v-btn>
+                </div>
             </div>
           </v-card-text>
         </v-card>
@@ -111,12 +129,20 @@
       return {
         dialog: false,
         infoAdd: false,
+        infoUpdate:{
+          prevdate: this.project.prevdate,
+          textObs: this.project.textObs
+        },
         items: [
           {id: 0, title: 'Aguardando'},
           {id: 2, title: 'Validação'},
           {id: 3, title: 'Impedimento/Pendência'}, 
           {id: 4, title: 'Cancelado'},
         ],
+        rules:{
+            required: (value) => !!value || "Campo obrigatório",
+            minname: (v) => (v||'').length >= 4 || "Mínimo 4 caracteres",
+        },
       }
     },
     props:{
@@ -143,6 +169,17 @@
         const nameProject = this.listProjetos.find(x => x.id == item)
         return nameProject.projeto
       },  
+      async infoAddUpdate(){
+        const { valid } = await this.$refs.form.validate()
+        if(valid){
+          this.project.prevdate = this.infoUpdate.prevdate
+          chamadosStore.updateFb(this.project)
+        }
+      },
+      editPrevDate(){
+        this.project.prevdate = ''
+        this.infoAdd = true
+      }
     }
   }
 </script>
