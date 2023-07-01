@@ -7,7 +7,7 @@
             density="comfortable"
             v-if="resources.readLoad"
         >  
-            <div class="d-flex mx-auto">
+            <div class="d-flex mx-auto justify-center align-center">
                 <v-app-bar-title class="mr-10">
                     <div class="d-flex">
                         <v-icon color="green" class="mr-1">mdi-head-snowflake-outline</v-icon>
@@ -24,6 +24,8 @@
                 >
                     {{ item.name }}
                 </v-btn>
+                <Profisco-userDialog v-if="firebaseUser" />
+                <profisco-login v-else />
             </div>
         </v-app-bar>
         <v-main v-if="resources.readLoad" class="container-bg">
@@ -95,6 +97,8 @@
         {name: "PROFISCO", icon: "mdi-upload", url:"/profisco", show: true},
         {name: "Ramais", icon: "mdi-phone", url:"/phone", show: false},
     ]
+
+    const firebaseUser = useFirebaseUser()
 </script>
 
 <style>

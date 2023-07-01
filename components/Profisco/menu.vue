@@ -13,9 +13,10 @@
 
     export default {
         methods:{
-            logout(){
+            async logout(){
                 loginStore.logout()
                 this.$router.push('/profisco')
+                const result = await signOutUser()
             }
         }
     }

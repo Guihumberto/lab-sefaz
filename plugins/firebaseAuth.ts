@@ -18,4 +18,6 @@ export default defineNuxtPlugin(nuxtApp => {
     // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     getDatabase(app);
+
+    initUser()
 })
