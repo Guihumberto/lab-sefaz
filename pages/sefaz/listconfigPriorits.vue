@@ -13,11 +13,11 @@
 </template>
 
 <script>
-    export default {
-        
-    }
+    definePageMeta({
+        middleware: ["auth"]
+    })
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 
 </style>

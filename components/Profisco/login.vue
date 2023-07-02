@@ -7,6 +7,7 @@
         <template v-slot:activator="{ props }">
           <v-btn
             color="success"
+            size="small"
             v-bind="props"
             variant="outlined"
             prepend-icon="mdi-account"
@@ -21,12 +22,6 @@
           </v-card-item>
           <v-card-text class="text-center">
             <h2 class="mb-5">{{ loginCreate.title }}</h2>
-            <v-btn @click="logout()">Sair</v-btn>
-            <client-only>
-              <pre>
-                {{ firebaseUser }}
-              </pre>
-            </client-only>
             <v-form @submit.prevent="login()" ref="form">
                 <v-text-field
                     label="Nome completo"
@@ -40,13 +35,13 @@
                     variant="outlined"
                     density="comfortable"
                     v-model="user.email"
-                    v-if="createAccount"
                 ></v-text-field>
                 <v-text-field
                     label="CPF"
                     variant="outlined"
                     density="comfortable"
                     v-model="user.cpf"
+                    v-if="createAccount"
                 ></v-text-field>
                 <v-text-field
                     label="Senha"
@@ -54,7 +49,6 @@
                     density="comfortable"
                     v-model="user.password"
                     type="password"
-                    v-if="createAccount"
                 ></v-text-field>
                 <v-btn type="submit" block color="primary">Continuar</v-btn>
             </v-form>
@@ -106,10 +100,6 @@ import { createUserWithEmailAndPassword } from 'firebase/auth'
           loginStore.login(this.user.cpf)
           this.credentials = await signInUser(this.user.email, this.user.password)
         }
-      },
-      async logout(){
-          const result = await signOutUser()
-          this.credentials = false
       }
     }
   }

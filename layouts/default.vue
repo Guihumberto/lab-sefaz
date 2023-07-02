@@ -94,7 +94,7 @@
 
     const menu = [
         {name: "Home", icon: "mdi-home", url:"/", show: true},
-        {name: "PROFISCO", icon: "mdi-upload", url:"/profisco", show: true},
+        {name: "Projetos", icon: "mdi-upload", url:"/profisco", show: true},
         {name: "Ramais", icon: "mdi-phone", url:"/phone", show: false},
     ]
 

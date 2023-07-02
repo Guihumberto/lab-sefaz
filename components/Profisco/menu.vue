@@ -3,7 +3,6 @@
         <nuxt-link to="/sefaz/listconfigPriorits">Priorização</nuxt-link>
         <nuxt-link to="/empresa/Projetos">Projetos</nuxt-link>
         <nuxt-link to="/consultores/chamados">Chamados</nuxt-link>
-        <nuxt-link @click.prevent="logout()">Sair</nuxt-link>
     </nav>
 </template>
 
