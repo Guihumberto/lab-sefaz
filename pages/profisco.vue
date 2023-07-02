@@ -5,7 +5,7 @@
         <div class="d-flex justify-space-between align-self-center">
             <h4 class="my-5">Resumo</h4>
             <div class="d-flex">
-                <ProfiscoMenu v-if="firebaseUser.email == 'juninho.joao@teste.com.br'" />
+                <ProfiscoMenu />
             </div>
         </div>
         <ProfiscoPublicoResumos />
@@ -19,11 +19,6 @@
     const loginStore = useLoginStore()
 
     export default {
-        data(){
-            return{
-                firebaseUser: useFirebaseUser()
-            }
-        },
         computed:{
             isLogin(){
                 return loginStore.readLogin

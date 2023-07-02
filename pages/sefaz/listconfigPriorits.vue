@@ -12,7 +12,7 @@
     </div>
 </template>
 
-<script>
+<script setup>
     definePageMeta({
         middleware: ["auth"]
     })

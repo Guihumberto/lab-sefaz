@@ -108,6 +108,11 @@
                 const nameEmpresa = this.listEmpresas.find(x => x.id == item)
                 return nameEmpresa.name
             },
+        },
+        setup(){
+            definePageMeta({
+                middleware: ["auth"]
+            })
         }
     }
 </script>
