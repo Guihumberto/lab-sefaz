@@ -36,9 +36,9 @@ import {
     const firebaseUser = useFirebaseUser();
     firebaseUser.value = auth.currentUser;
   
-    // const userCookie = useCookie("userCookie");
+    const userCookie = useCookie("userCookie");
   
-    // const router = useRouter();
+    const router = useRouter();
   
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -54,17 +54,19 @@ import {
       firebaseUser.value = user;
   
       // @ts-ignore
-      // userCookie.value = user; //ignore error because nuxt will serialize to json
+      userCookie.value = user; //ignore error because nuxt will serialize to json
   
-      // $fetch("/api/auth", {
-      //   method: "POST",
-      //   body: { user },
-      // });
+      $fetch("/api/auth", {
+        method: "POST",
+        body: { user },
+      });
     });
   };
 
   export const signOutUser = async () => {
+    const router = useRouter();
     const auth = getAuth();
     const result = await auth.signOut();
+    router.push("/");
     return result;
   };

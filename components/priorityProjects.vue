@@ -1,6 +1,5 @@
 <template>
   <v-card
-    class="mx-auto"
     variant="flat"
   >
   <v-card-title>Lista de Solicitações</v-card-title>

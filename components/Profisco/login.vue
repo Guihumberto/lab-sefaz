@@ -76,10 +76,10 @@ import { createUserWithEmailAndPassword } from 'firebase/auth'
         dialog: false,
         createAccount: false,
         user: {
-          name: '',
-          email: '',
-          cpf: '',
-          password: ''
+          name: 'João Teste',
+          email: 'juninho.joao@teste.com.br',
+          cpf: '01791743390',
+          password: '123456'
         },
         credentials: false,
         firebaseUser: useFirebaseUser()
