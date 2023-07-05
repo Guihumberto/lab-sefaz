@@ -39,6 +39,7 @@
     </div> 
     <v-expand-transition>
       <div v-if="showConcluidos" class="py-5">
+        <h4>Chamados Finalizados</h4>
         <v-table hover>
           <thead>
             <tr>
@@ -96,7 +97,8 @@
     </v-expand-transition>
 
   
-    <div class="box">
+    <div class="box py-5">
+      <h4>Chamados Abertos</h4>
         <div 
           class="list"
           v-for="item, i in listChamados"
