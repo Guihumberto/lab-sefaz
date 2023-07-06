@@ -34,7 +34,7 @@
         variant="text"
         @click="showConcluidos = !showConcluidos" 
         :append-icon="showConcluidos ? 'mdi-chevron-down':'mdi-chevron-right'">
-        Mostrar Concluídos
+        {{showConcluidos ? 'Ocultar' : 'Mostrar'}} Concluídos
       </v-btn>
     </div> 
     <v-expand-transition>

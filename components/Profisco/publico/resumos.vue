@@ -54,8 +54,14 @@
     align-items: center;
 }
 .painel {
-    width: 49%;
-
+    width: 48%;
+    transition: 0.5s;
+    overflow: hidden;
+    cursor: pointer;
+}
+.painel:hover{
+    transform: scale(1.1);  
+    box-shadow: -10px 20px 35px rgba(0,0,0,0.15);      
 }
 @media (max-width: 500px) {
     .mainResumo {
