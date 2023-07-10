@@ -115,7 +115,7 @@
                     </v-chip>
                   </h5>
                   <p>{{ item.textSolic }}</p>
-                  <small v-if="item.prevdate">Previsão da conclusão: {{ item.prevdate }}</small>
+                  <small v-if="item.prevdate">Previsão da conclusão: {{ item.prevdate.split('-').reverse().join('-') }}</small>
                 </div>
                 <h2 class="rank">
                     <small> 
