@@ -61,6 +61,7 @@ export const useChamadosStore = defineStore("chamados", {
         priority: 1, 
         idProject: item.idProject, 
         prevdate: '', 
+        completionDate: '',
         status: 0
       }
 

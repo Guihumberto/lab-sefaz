@@ -61,7 +61,7 @@
               <th class="text-center">
                 Status
               </th>
-              <th class="text-left">
+              <th class="text-center">
                 Data da Conclusão
               </th> 
               <!-- <th class="text-center">
@@ -88,15 +88,13 @@
               <td class="text-center"><v-chip density="compact" :color="colorStatus(item.status)">
                 {{ nameStatus(item.status) }}
               </v-chip></td>
-              <td>{{ item.prevdate }}</td> 
+              <td class="text-center">{{ item.completionDate.split('-').reverse().join('-') }}</td> 
               <!-- <td class="text-center">{{ nameConsultor(item.consultor) }}</td> -->
             </tr>
           </tbody>
         </v-table>
       </div>
     </v-expand-transition>
-
-  
     <div class="box py-5">
       <h4>Chamados Abertos</h4>
         <div 

@@ -34,14 +34,27 @@
                   v-if="project.status == 0"
                   @click.prevent="changeStatus(1)"
                 >Iniciar a resolução</v-btn> <br>
-                <div>
-                  <v-btn 
-                    class="my-2" 
-                    color="success"
+                <div class="formConclusion">
+                  <v-form 
+                    @submit.prevent="changeStatus(5)"
                     v-if="project.status != 0"
-                    @click.prevent="changeStatus(5)"
-                  >Concluir chamado</v-btn> <br>
-  
+                    >
+                    <v-text-field
+                        label="Data da conclusão"
+                        type="date"
+                        variant="outlined"
+                        density="comfortable"
+                        style="max-width: 200px;"
+                        :rules="[rules.required]"
+                        v-model.trim="completionDate"
+                    ></v-text-field>
+                    <v-btn 
+                      class="my-2" 
+                      color="success"
+                      type="submit"
+                      :disabled="!completionDate"
+                    >Concluir chamado</v-btn> <br>
+                  </v-form>
                   <v-menu 
                     v-if="project.status != 0"
                   >
@@ -124,11 +137,15 @@
   import { useProjetosStore } from '@/stores/ProjetosStore'
   const projetosStore = useProjetosStore()
 
+  const timeElapsed = Date.now();
+  const today = new Date(timeElapsed);
+
   export default {
     data () {
       return {
         dialog: false,
         infoAdd: false,
+        completionDate: '',
         infoUpdate:{
           prevdate: this.project.prevdate,
           textObs: this.project.textObs
@@ -159,6 +176,9 @@
     methods:{
       changeStatus(status){
         this.project.status = status
+        if(status == 5){
+          this.project.completionDate = this.completionDate
+        }
         chamadosStore.updateFb(this.project)
       },
       nameStatus(item){
@@ -185,5 +205,11 @@
 </script>
 
 <style scoped>
+.formConclusion {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
 </style>
