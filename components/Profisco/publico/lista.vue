@@ -101,6 +101,7 @@
           class="list"
           v-for="item, i in listChamados"
           :key="item.name"
+          @click="dialogInfoUpdate = !dialogInfoUpdate"
         >
             <!-- <div class="imgBx">
                 <v-icon size="60">mdi-account</v-icon>
@@ -129,6 +130,22 @@
                 </h2>
             </div>
         </div>
+        <v-dialog
+          v-model="dialogInfoUpdate"
+          width="500"
+        >
+        <v-card>
+          <v-card-title>Informações adicionais</v-card-title>
+          <v-card-text>
+            
+          </v-card-text>
+          <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn @click="dialogInfoUpdate = false">Fechar</v-btn>
+          </v-card-actions>
+        </v-card>
+
+      </v-dialog>
     </div>
   </template>
 <script>
@@ -149,7 +166,8 @@
         filterProject: 0,
         filterStatus: 6,
         reverse: true,
-        showConcluidos: false
+        showConcluidos: false,
+        dialogInfoUpdate: false
       }
     },
     computed:{
