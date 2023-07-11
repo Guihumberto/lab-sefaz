@@ -81,6 +81,7 @@
         </v-chip></td>
         <!-- <td>{{ item.prevdate }}</td> -->
         <td class="text-center">
+          <profisco-consultor-add-comments :project="item" />
           <profisco-consultor-change-status :project="item" />
         </td>
       </tr>

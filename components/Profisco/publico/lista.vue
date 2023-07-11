@@ -101,7 +101,7 @@
           class="list"
           v-for="item, i in listChamados"
           :key="item.name"
-          @click="dialogInfoUpdate = !dialogInfoUpdate"
+          @click="dialogInfoUpdate = !dialogInfoUpdate, project= item"
         >
             <!-- <div class="imgBx">
                 <v-icon size="60">mdi-account</v-icon>
@@ -137,7 +137,32 @@
         <v-card>
           <v-card-title>Informações adicionais</v-card-title>
           <v-card-text>
-            
+            <div class="projetoBox">
+              Projeto: {{ nameProject(project.idProject).projeto }} <br>
+              Solicitação: {{ project.textSolic }} <br>
+              Status: {{ nameStatus(project.status) }}
+            </div>
+
+            <v-timeline side="end" v-if="project.comment">
+              <v-timeline-item
+                v-for="item in project.comment"
+                :key="item.id"
+                dot-color="primary"
+                size="small"
+              >
+                <v-alert
+                  :value="true"
+                  class="text-left d-flex"
+                >
+                <div>
+                  {{ item.comment }} <br><br>
+                  <small> <v-icon>mdi-calendar</v-icon> {{ new Date(item.id) }}</small>
+                </div>
+
+                </v-alert>
+              </v-timeline-item>
+            </v-timeline>
+              
           </v-card-text>
           <v-card-actions>
               <v-spacer></v-spacer>
@@ -167,7 +192,8 @@
         filterStatus: 6,
         reverse: true,
         showConcluidos: false,
-        dialogInfoUpdate: false
+        dialogInfoUpdate: false,
+        project: ''
       }
     },
     computed:{
@@ -359,6 +385,11 @@
 }
 .box .list .content p {
     font-size: 0.75em;
+}
+.projetoBox {
+  border: 2px solid grey;
+  padding: 5px;
+  border-radius: 6px;
 }
 @media (max-width: 500px) {
   .menuFilter {

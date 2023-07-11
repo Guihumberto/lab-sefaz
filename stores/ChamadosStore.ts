@@ -96,6 +96,23 @@ export const useChamadosStore = defineStore("chamados", {
       const db = getDatabase();
       const link = ref(db, `comite/chamados/${item.id}`);
       remove(link)
+    },
+    addCommentFb(item, text){
+      const db = getDatabase();
+      let idComment = Date.now()
+
+      let comment = {
+        id: idComment,
+        comment: text
+      }
+
+      const link = ref(db, `comite/chamados/${item.id}/comment/${idComment}`);
+      set(link, comment);
+    },
+    deleteCommenFb(project, comment){
+      const db = getDatabase();
+      const link = ref(db, `comite/chamados/${project.id}/comment/${comment.id}`);
+      remove(link)
     }
   },
   

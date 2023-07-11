@@ -25,7 +25,8 @@
             }
         },
         props:{
-            dialogInfoUpdate: Boolean
+            dialogInfoUpdate: Boolean,
+            project: true
         }
     }
 </script>
